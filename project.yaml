@@ -17,6 +17,7 @@ actions:
     outputs:
       highly_sensitive:
         data: output/analysis_dataset.dta
+        stsettested: output/analysis_dataset_STSET_tested.dta
         stsetpositiivetest: output/analysis_dataset_STSET_positivetest.dta
         stseticu: output/analysis_dataset_STSET_icu.dta
         stsethes: output/analysis_dataset_STSET_hes.dta
@@ -56,6 +57,25 @@ actions:
     needs: [crmain]
     outputs:
       moderately_sensitive:
-        log: logs/03a_eth_table1_eth5_nocarehomes.log
+        log: logs/03b_eth_table1_eth5_nocarehomes.log
         table: output/table1_eth5.txt
 
+  main_eth16:
+    run: stata-mp:latest analysis/04a_eth_an_multivariable_eth16_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/04a_eth_an_multivariable_eth16.log
+        table: output/table2_eth16.txt
+        estout: output/estout_table2_eth16.txt
+        graph: output/FP_multivariable_eth16.txt
+
+  main_eth5:
+    run: stata-mp:latest analysis/04b_eth_an_multivariable_eth5_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/04b_eth_an_multivariable_eth5.log
+        table: output/table2_eth5.txt
+        estout: output/estout_table2_eth5.txt
+        graph: output/FP_multivariable_eth5.txt

@@ -1,0 +1,13 @@
+-------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /workspace/logs/04b_eth_an_multivariable_eth5.log
+  log type:  text
+ opened on:   6 Jan 2021, 12:20:18
+
+. file write tablecontent ("Table 2: Association between ethnicity in 5 categor
+> ies and COVID-19 outcomes - No care homes") _n
+file handle tablecontent not found
+r(111);
+
+end of do-file
+r(111);

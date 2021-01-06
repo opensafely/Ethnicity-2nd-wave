@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /workspace/logs/01_eth_cr_analysis_dataset.log
   log type:  text
- opened on:   6 Jan 2021, 11:29:13
+ opened on:   6 Jan 2021, 12:04:50
 
 . 
 . clear
@@ -3017,5 +3017,5 @@ file ./output/analysis_dataset_STSET_onsdeath.dta saved
       name:  <unnamed>
        log:  /workspace/logs/01_eth_cr_analysis_dataset.log
   log type:  text
- closed on:   6 Jan 2021, 11:29:18
+ closed on:   6 Jan 2021, 12:04:53
 -------------------------------------------------------------------------------
