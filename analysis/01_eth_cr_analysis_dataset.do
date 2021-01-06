@@ -18,7 +18,7 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 * Open a log file
 cap log close
-log using ./analysis/output/01_eth_create_analysis_dataset, replace t
+log using ./logs/01_eth_cr_analysis_dataset, replace t
 
 clear
 import delimited ./output/input.csv
@@ -971,7 +971,7 @@ drop if onsdeath_date <= indexdate
 safecount 
 
 sort patient_id
-save ./analysis/analysis_dataset.dta", replace
+save ./output/analysis_dataset.dta, replace
 
 ****************************************************************
 *  Create outcome specific datasets for the whole population  *
@@ -979,11 +979,11 @@ save ./analysis/analysis_dataset.dta", replace
 
 
 foreach i of global outcomes {
-	use ./analysis/analysis_dataset.dta, clear
+	use ./output/analysis_dataset.dta, clear
 	drop if `i'_date <= indexdate 
 	stset stime_`i', fail(`i') 				///	
 	id(patient_id) enter(indexdate) origin(indexdate)
-	save ./analysis/analysis_dataset_STSET_`i'.dta, replace
+	save ./output/analysis_dataset_STSET_`i'.dta, replace
 }	
 
 

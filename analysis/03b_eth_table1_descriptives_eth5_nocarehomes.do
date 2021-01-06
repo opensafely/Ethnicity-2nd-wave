@@ -1,7 +1,7 @@
 /*==============================================================================
-DO FILE NAME:			03b_outcomes_checks_eth5
-PROJECT:				Ethnicity and COVID-19 
-DATE: 					14 July 2020 
+DO FILE NAME:			03b_eth_table1_descriptives_eth5_nocarehomess
+PROJECT:				Ethnicity 2nd wave
+DATE: 					6th Jan 2020
 AUTHOR:					R Mathur
 						adapted from A Schultze 	
 DESCRIPTION OF FILE:	Produce a table of baseline characteristics, by ethnicity
@@ -28,8 +28,12 @@ USER-INSTALLED ADO:
 
 * Open a log file
 capture log close
-log using "$Logdir/03b_outcomes_checks_eth5", replace t
+log using ./logs/03b_eth_table1_eth5_nocarehomes.log, replace t
 
+* Open Stata dataset
+use ./output/analysis_dataset.dta, clear
+drop if carehome==1
+safetab eth5,m 
 
  /* PROGRAMS TO AUTOMATE TABULATIONS===========================================*/ 
 
@@ -44,10 +48,10 @@ syntax, variable(varname) condition(string)
 	qui cou
 	local overalldenom=r(N)
 	
-	sum `variable' if `variable' `condition'
+	qui sum `variable' if `variable' `condition'
 	file write tablecontent (r(max)) _tab
 	
-	qui cou if `variable' `condition'
+	qui cou   if `variable' `condition'
 	local rowdenom = r(N)
 	local colpct = 100*(r(N)/`overalldenom')
 	file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct') (")") _tab
@@ -99,7 +103,7 @@ the syntax row specifies two inputs for the program:
 	a VARNAME which is your variable 
 	a CONDITION which is a string of some condition you impose 
 	
-the program qui counts if variable and condition and returns the qui counts
+the program counts if variable and condition and returns the counts
 column percentages are then automatically generated
 this is then written to the text file 'tablecontent' 
 the number followed by space, brackets, formatted pct, end bracket and then tab
@@ -182,14 +186,13 @@ file write tablecontent _n
 	
 end
 
-
 /* INVOKE PROGRAMS FOR TABLE 1================================================*/ 
 
 *Set up output file
 cap file close tablecontent
-file open tablecontent using $Tabfigdir/table0_outcomes_eth5.txt, write text replace
+file open tablecontent using ./output/table1_eth5.txt, write text replace
 
-file write tablecontent ("Table 0: Outcome qui counts by ethnic group") _n
+file write tablecontent ("Table 1: Demographic and Clinical Characteristics- No care omes") _n
 
 * eth5 labelled columns
 
@@ -209,70 +212,112 @@ file write tablecontent _tab ("Total")				  			  _tab ///
 							 ("`lab4'")  						  _tab ///
 							 ("`lab5'")  						  _tab ///
 							 ("`lab6'")  						  _n 							 
-
-/*STEP 1: NO CARE HOMES*/
-
-use "$Tempdir/analysis_dataset.dta", clear
-keep if carehome==0
 							 
-*Denominator
-file write tablecontent ("Main population: no care homes") _n
-gen byte cons=1
-file write tablecontent ("N") _tab
 
-generaterow2, variable(cons) condition("==1")
+
+* DEMOGRAPHICS (more than one level, potentially missing) 
+
+format hba1c_pct bmi egfr %9.2f
+
+
+gen byte Denominator=1
+qui tabulatevariable, variable(Denominator) min(1) max(1) 
 file write tablecontent _n 
 
+qui summarizevariable, variable(age) 
+file write tablecontent _n
 
-*Outcomes 
-foreach var of global outcomes {
-
-file write tablecontent ("`var'") _tab
-generaterow2, variable(`var') condition("==1")
-}
-
-*icu outcomes
-local p" "any_resp_support_flag" "basic_resp_support_flag" "advanced_resp_support_flag" "
-foreach var of local p {
-file write tablecontent ("`var'") _tab
-generaterow2, variable(`var') condition("==1")
-}
-
-
-/* STEP 2: CAREHOMES*/
-use "$Tempdir/analysis_dataset.dta", clear
-keep if carehome==1
-gen byte cons=1
-
-*Denominator
-file write tablecontent ("Care home population") _n
-file write tablecontent ("N") _tab
-
-generaterow2, variable(cons) condition("==1")
+qui tabulatevariable, variable(male) min(0) max(1) 
 file write tablecontent _n 
 
+qui tabulatevariable, variable(imd) min(1) max(5) 
+file write tablecontent _n 
 
-*Outcomes 
-foreach var of global outcomes {
+qui summarizevariable, variable(hh_size)
+file write tablecontent _n
 
-file write tablecontent ("`var'") _tab
-generaterow2, variable(`var') condition("==1")
+qui tabulatevariable, variable(hh_total_cat) min(1) max(9) missing
+file write tablecontent _n 
+
+qui summarizevariable, variable(gp_consult_count) 
+file write tablecontent _n 
+
+qui tabulatevariable, variable(smoke_nomiss) min(1) max(3)  
+file write tablecontent _n 
+
+qui summarizevariable, variable(bmi)
+file write tablecontent _n
+
+qui tabulatevariable, variable(bmicat_sa) min(1) max(7) 
+file write tablecontent _n 
+
+qui summarizevariable, variable(hba1c_pct)
+file write tablecontent _n
+
+qui summarizevariable, variable(hba1c_mmol_per_mol)
+file write tablecontent _n
+
+qui tabulatevariable, variable(hba1ccat) min(0) max(5)  
+file write tablecontent _n 
+
+qui summarizevariable, variable(bp_sys) 
+file write tablecontent _n
+
+qui summarizevariable, variable(bp_dias) 
+file write tablecontent _n
+
+qui tabulatevariable, variable(bp_cat) min(1) max(5)  
+file write tablecontent _n 
+
+qui tabulatevariable, variable(dm_type) min(0) max(3)  
+file write tablecontent _n 
+
+* COMORBIDITIES (binary)
+qui summarizevariable, variable(comorbidity_count)
+file write tablecontent _n
+
+foreach comorb of varlist 		///
+	hypertension 				///
+	chronic_cardiac_disease		///
+	stroke						///
+	egfr60							///
+	esrf						///
+	cancer						///
+	ra_sle_psoriasis			///
+	immunosuppressed			///
+	chronic_liver_disease		///
+	dementia					///
+	other_neuro					///
+	asthma						///
+	chronic_respiratory_disease ///
+	{ 
+	local comorb: subinstr local comorb "i." ""
+	local lab: variable label `comorb'
+	file write tablecontent ("`lab'") _tab
+								
+	generaterow2, variable(`comorb') condition("==1")
+	file write tablecontent _n _n
 }
 
-*icu outcomes
-local p" "any_resp_support_flag" "basic_resp_support_flag" "advanced_resp_support_flag" "
-foreach var of local p {
-file write tablecontent ("`var'") _tab
-generaterow2, variable(`var') condition("==1")
+** OTHER TREATMENT VARIABLES (binary)
+foreach treat of varlist ///
+	combination_bp_meds	///
+	statin 				///
+	insulin				///
+						{    		
+
+local lab: variable label `treat'
+file write tablecontent ("`lab'") _tab
+	
+generaterow2, variable(`treat') condition("==1")
+
+file write tablecontent _n
 }
 
-
+qui tabulatevariable, variable(dm_type_exeter_os) min(0) max(2)  
+file write tablecontent _n 
 
 file close tablecontent
 
-
 * Close log file 
 log close
-
-clear
-insheet using "$Tabfigdir/table0_outcomes_eth5.txt", clear

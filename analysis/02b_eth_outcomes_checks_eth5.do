@@ -1,11 +1,11 @@
 /*==============================================================================
-DO FILE NAME:			03a_outcomes_checks_ethnicity_16
+DO FILE NAME:			02b_outcomes_checks_eth5
 PROJECT:				Ethnicity and COVID-19 
 DATE: 					14 July 2020 
 AUTHOR:					R Mathur
 						adapted from A Schultze 	
 DESCRIPTION OF FILE:	Produce a table of baseline characteristics, by ethnicity
-						Generalised to produce same columns as levels of ethnicity_16
+						Generalised to produce same columns as levels of eth5
 						Output to a textfile for further formatting
 DATASETS USED:			$Tempdir\analysis_dataset.dta
 DATASETS CREATED: 		None
@@ -20,6 +20,7 @@ USER-INSTALLED ADO:
  change the analysis_dataset to exlucde people with any of the following as of Feb 1st 2020:
  COVID identified in primary care
  COVID test result via  SGSS
+ A&E admission for COVID-19
  ICU admission for COVID-19
  
 
@@ -27,7 +28,7 @@ USER-INSTALLED ADO:
 
 * Open a log file
 capture log close
-log using "$Logdir/03a_outcomes_checks_eth16", replace t
+log using ./logs/02b_outcomes_checks_eth5.log, replace t
 
 
  /* PROGRAMS TO AUTOMATE TABULATIONS===========================================*/ 
@@ -43,7 +44,7 @@ syntax, variable(varname) condition(string)
 	qui cou
 	local overalldenom=r(N)
 	
-	qui sum `variable' if `variable' `condition'
+	sum `variable' if `variable' `condition'
 	file write tablecontent (r(max)) _tab
 	
 	qui cou if `variable' `condition'
@@ -51,10 +52,10 @@ syntax, variable(varname) condition(string)
 	local colpct = 100*(r(N)/`overalldenom')
 	file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct') (")") _tab
 
-	forvalues i=1/17{
-	qui cou if  == `i'
+	forvalues i=1/6{
+	qui cou if eth5 == `i'
 	local rowdenom = r(N)
-	qui cou if ethnicity_16 == `i' & `variable' `condition'
+	qui cou if eth5 == `i' & `variable' `condition'
 	local pct = 100*(r(N)/`rowdenom') 
 	file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _tab
 	}
@@ -77,10 +78,10 @@ syntax, variable(varname) condition(string)
 	local colpct = 100*(r(N)/`overalldenom')
 	file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct') (")") _tab
 
-	forvalues i=1/17{
-	qui cou if ethnicity_16 == `i'
+	forvalues i=1/6{
+	qui cou if eth5 == `i'
 	local rowdenom = r(N)
-	qui cou if ethnicity_16 == `i' & `variable' `condition'
+	qui cou if eth5 == `i' & `variable' `condition'
 	local pct = 100*(r(N)/`rowdenom') 
 	file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _tab
 	}
@@ -98,7 +99,7 @@ the syntax row specifies two inputs for the program:
 	a VARNAME which is your variable 
 	a CONDITION which is a string of some condition you impose 
 	
-the program counts if variable and condition and returns the counts
+the program qui counts if variable and condition and returns the qui counts
 column percentages are then automatically generated
 this is then written to the text file 'tablecontent' 
 the number followed by space, brackets, formatted pct, end bracket and then tab
@@ -160,8 +161,8 @@ syntax, variable(varname)
 	file write tablecontent ("Mean (SD)") _tab 
 	file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")") _tab
 	
-	forvalues i=1/12{							
-	qui summarize `variable' if ethnicity_16 == `i', d
+	forvalues i=1/6{							
+	qui summarize `variable' if eth5 == `i', d
 	file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")") _tab
 	}
 
@@ -172,8 +173,8 @@ file write tablecontent _n
 	file write tablecontent ("Median (IQR)") _tab 
 	file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-") %3.1f (r(p75)) (")") _tab
 	
-	forvalues i=1/17{
-	qui summarize `variable' if ethnicity_16 == `i', d
+	forvalues i=1/6{
+	qui summarize `variable' if eth5 == `i', d
 	file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-") %3.1f (r(p75)) (")") _tab
 	}
 	
@@ -186,29 +187,18 @@ end
 
 *Set up output file
 cap file close tablecontent
-file open tablecontent using $Tabfigdir/table0_outcomes_eth16.txt, write text replace
+file open tablecontent using ./output/table0_outcomes_eth5.txt, write text replace
 
-file write tablecontent ("Table 0: Outcome counts by ethnic group") _n
+file write tablecontent ("Table 0: Outcome qui counts by ethnic group") _n
 
-* ethnicity_16 labelled columns
+* eth5 labelled columns
 
-local lab1: label ethnicity_16 1
-local lab2: label ethnicity_16 2
-local lab3: label ethnicity_16 3
-local lab4: label ethnicity_16 4
-local lab5: label ethnicity_16 5
-local lab6: label ethnicity_16 6
-local lab7: label ethnicity_16 7
-local lab8: label ethnicity_16 8
-local lab9: label ethnicity_16 9
-local lab10: label ethnicity_16 10
-local lab11: label ethnicity_16 11
-local lab12: label ethnicity_16 12
-local lab13: label ethnicity_16 13
-local lab14: label ethnicity_16 14
-local lab15: label ethnicity_16 15
-local lab16: label ethnicity_16 16
-local lab17: label ethnicity_16 17
+local lab1: label eth5 1
+local lab2: label eth5 2
+local lab3: label eth5 3
+local lab4: label eth5 4
+local lab5: label eth5 5
+local lab6: label eth5 6
 
 
 
@@ -218,22 +208,11 @@ file write tablecontent _tab ("Total")				  			  _tab ///
 							 ("`lab3'")  						  _tab ///
 							 ("`lab4'")  						  _tab ///
 							 ("`lab5'")  						  _tab ///
-							 ("`lab6'")  						  _tab ///							 
-							 ("`lab7'")  						  _tab ///
-							 ("`lab8'")  						  _tab ///
-							 ("`lab9'")  						  _tab ///
-							 ("`lab10'")  						  _tab ///
-							 ("`lab11'")  						  _tab ///
-							 ("`lab12'")  						  _tab ///
-							 ("`lab13'")  						  _tab ///
-							 ("`lab14'")  						  _tab ///
-							 ("`lab15'")  						  _tab ///
-							 ("`lab16'")  						  _tab ///
-							 ("`lab17'")  						  _n
-							 
+							 ("`lab6'")  						  _n 							 
+
 /*STEP 1: NO CARE HOMES*/
 
-use "$Tempdir/analysis_dataset.dta", clear
+use ./output/analysis_dataset.dta, clear
 keep if carehome==0
 							 
 *Denominator
@@ -261,7 +240,7 @@ generaterow2, variable(`var') condition("==1")
 
 
 /* STEP 2: CAREHOMES*/
-use "$Tempdir/analysis_dataset.dta", clear
+use ./output/analysis_dataset.dta, clear
 keep if carehome==1
 gen byte cons=1
 
@@ -295,5 +274,3 @@ file close tablecontent
 * Close log file 
 log close
 
-clear
-insheet using "$Tabfigdir/table0_outcomes_eth16.txt", clear
