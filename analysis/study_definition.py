@@ -401,7 +401,7 @@ study = StudyDefinition(
 
     ### GP CONSULTATION RATE IN 12 MONTH BEFORE FEB 1 2020
     gp_consult_count=patients.with_gp_consultations(
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 4, "stddev": 2},
@@ -577,7 +577,7 @@ study = StudyDefinition(
         ),
         prednisolone_last_year=patients.with_these_medications(
             pred_codes,
-            between=["2019-02-01", "2020-01-31"],
+            between=["2019-09-01", "2020-08-31"],
             returning="number_of_matches_in_period",
         ),
     ),
@@ -652,12 +652,12 @@ study = StudyDefinition(
  
         oad_lastyear_meds=patients.with_these_medications(
             oad_med_codes, 
-            between=["2019-02-01", "2020-01-31"],
+            between=["2019-09-01", "2020-08-31"],
             returning="number_of_matches_in_period",
         ),
         insulin_lastyear_meds=patients.with_these_medications(
             insulin_med_codes,
-            between=["2019-02-01", "2020-01-31"],
+            between=["2019-09-01", "2020-08-31"],
             returning="number_of_matches_in_period",
         ),
     ),
@@ -825,7 +825,7 @@ study = StudyDefinition(
      # MEDICATION COVARIATES IN THE LAST 12 MONTHS
     ace_inhibitors=patients.with_these_medications(
         ace_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -835,7 +835,7 @@ study = StudyDefinition(
 
     alpha_blockers=patients.with_these_medications(
         alpha_blocker_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -845,7 +845,7 @@ study = StudyDefinition(
 
     arbs=patients.with_these_medications(
         arb_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -855,7 +855,7 @@ study = StudyDefinition(
 
     betablockers=patients.with_these_medications(
         betablocker_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -865,7 +865,7 @@ study = StudyDefinition(
 
     calcium_channel_blockers=patients.with_these_medications(
         calcium_channel_blockers_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -875,7 +875,7 @@ study = StudyDefinition(
 
     combination_bp_meds=patients.with_these_medications(
         combination_bp_med_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -885,7 +885,7 @@ study = StudyDefinition(
 
     spironolactone=patients.with_these_medications(
         spironolactone_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -895,7 +895,7 @@ study = StudyDefinition(
 
     thiazide_diuretics=patients.with_these_medications(
         thiazide_type_diuretic_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         returning="number_of_matches_in_period",
         return_expectations={
             "int": {"distribution": "normal", "mean": 3, "stddev": 2},
@@ -906,7 +906,7 @@ study = StudyDefinition(
     ### INSULIN USE
     insulin=patients.with_these_medications(
         insulin_med_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         return_last_date_in_period=True,
         include_month=True,
         return_expectations={
@@ -916,7 +916,7 @@ study = StudyDefinition(
     ### STATIN USE
     statin=patients.with_these_medications(
         statin_med_codes,
-        between=["2019-02-01", "2020-01-31"],
+        between=["2019-09-01", "2020-08-31"],
         return_last_date_in_period=True,
         include_month=True,
         return_expectations={
