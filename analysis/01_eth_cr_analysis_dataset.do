@@ -23,7 +23,7 @@ log using ./logs/01_eth_cr_analysis_dataset, replace t
 clear
 import delimited ./output/input.csv
 
-global outcomes "tested positivetest icu hes onscoviddeath ons_noncoviddeath onsdeath"
+global outcomes "tested positivetest hes onscoviddeath ons_noncoviddeath onsdeath"
 
 ****************************
 *  Create required cohort  *
@@ -159,7 +159,7 @@ gen tested_censor_date = d("09/11/2020")
 gen positivetest_censor_date = d("09/11/2020")
 gen ae_censor_date = d("09/11/2020")
 gen hes_censor_date = d("09/11/2020")
-gen icu_censor_date = d("30/07/2020")
+gen icu_censor_date = d("18/08/2020")
 gen cpnsdeath_censor_date  = d("09/11/2020")
 gen onsdeath_censor_date = d("09/11/2020")
 gen onscoviddeath_censor_date = d("09/11/2020")

@@ -14,7 +14,7 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 ==============================================================================*/
 
 
-global outcomes "tested positivetest icu hes onscoviddeath ons_noncoviddeath onsdeath"
+global outcomes "tested positivetest hes onscoviddeath ons_noncoviddeath onsdeath"
 sysdir set PLUS ./analysis/adofiles
 adopath + ./analysis/adofiles
 sysdir
