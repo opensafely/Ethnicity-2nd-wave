@@ -94,7 +94,6 @@ format indexdate %d
 
 /* OUTCOME AND SURVIVAL TIME==================================================*/
 
-	
 /****   Outcome definitions   ****/
 ren primary_care_suspect_case	suspected_date
 ren primary_care_case			confirmed_date
@@ -121,6 +120,8 @@ gen ons_noncoviddeath_date = onsdeath_date if died_ons_covid_flag_any != 1
 *gen dummy date for infected and replace later on
 
 foreach var of global outcomes {
+	d `var_date'
+	safetab `var'_date
 	confirm string variable `var'_date
 	rename `var'_date `var'_dstr
 	gen `var'_date = date(`var'_dstr, "YMD")
