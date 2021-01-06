@@ -27,7 +27,7 @@ actions:
       moderately_sensitive:
         log: logs/01_eth_cr_analysis_dataset.log
 
-  checketh16:
+  check_eth16:
     run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
     needs: [crmain]
     outputs:
@@ -36,13 +36,21 @@ actions:
         table: output/table0_outcomes_eth16.txt
 
 
-  checketh5:
+  check_eth5:
     run: stata-mp:latest analysis/02b_eth_outcomes_checks_eth5.do
     needs: [crmain]
     outputs:
       moderately_sensitive:
         log: logs/02b_outcomes_checks_eth5.log
         table: output/table0_outcomes_eth5.txt
+
+    check_region:
+    run: stata-mp:latest analysis/05a_eth_region_check.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/05_region_check.log
+        table: output/table3_region.txt
 
   table1_eth16:
     run: stata-mp:latest analysis/03a_eth_table1_descriptives_eth16_nocarehomes.do
@@ -79,3 +87,5 @@ actions:
         table: output/table2_eth5.txt
         estout: output/estout_table2_eth5.txt
         graph: output/FP_multivariable_eth5.txt
+
+
