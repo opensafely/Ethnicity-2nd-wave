@@ -26,13 +26,13 @@ study = StudyDefinition(
 
     # STUDY POPULATION
    population=patients.registered_with_one_practice_between(
-        "2019-02-01", "2020-02-01"
+        "2019-09-01", "2020-09-01"
    ),
 
     dereg_date=patients.date_deregistered_from_all_supported_practices(
         on_or_before="2020-12-01", 
         date_format="YYYY-MM",
-        return_expectations={"date": {"earliest": "2020-02-01"}},
+        return_expectations={"date": {"earliest": "2020-09-01"}},
 
     ),
 
@@ -81,41 +81,41 @@ study = StudyDefinition(
 
     ### A&E attendence
     a_e_consult_date=patients.attended_emergency_care(
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         returning="date_arrived",
         date_format="YYYY-MM-DD",
         find_first_match_in_period=True,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
 
     # ICU attendance and ventilation
     any_resp_support_flag=patients.admitted_to_icu(
-    on_or_after="2020-02-01",
+    on_or_after="2020-09-01",
     find_first_match_in_period=True,
     returning="had_respiratory_support",
     return_expectations={
-            "date": {"earliest" : "2020-02-01"},
+            "date": {"earliest" : "2020-09-01"},
             "rate" : "exponential_increase"
        },
     ),
 
     basic_resp_support_flag=patients.admitted_to_icu(
-    on_or_after="2020-02-01",
+    on_or_after="2020-09-01",
     find_first_match_in_period=True,
     returning="had_basic_respiratory_support",
     return_expectations={
-            "date": {"earliest" : "2020-02-01"},
+            "date": {"earliest" : "2020-09-01"},
             "rate" : "exponential_increase"
        },
     ),
 
     advanced_resp_support_flag=patients.admitted_to_icu(
-    on_or_after="2020-02-01",
+    on_or_after="2020-09-01",
     find_first_match_in_period=True,
     returning="had_advanced_respiratory_support",
     return_expectations={
-            "date": {"earliest" : "2020-02-01"},
+            "date": {"earliest" : "2020-09-01"},
             "rate" : "exponential_increase"
        },
     ),
@@ -124,105 +124,105 @@ study = StudyDefinition(
     covid_admission_date=patients.admitted_to_hospital(
         returning= "date_admitted" ,  # defaults to "binary_flag"
         with_these_diagnoses=covid_codelist,  # optional
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         find_first_match_in_period=True,  
         date_format="YYYY-MM-DD",  
-        return_expectations={"date": {"earliest": "2020-02-01"}, "incidence" : 0.25},
+        return_expectations={"date": {"earliest": "2020-09-01"}, "incidence" : 0.25},
    ),
     covid_admission_primary_diagnosis=patients.admitted_to_hospital(
         returning="primary_diagnosis",
         with_these_diagnoses=covid_codelist,  # optional
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         find_first_match_in_period=True,  
         date_format="YYYY-MM-DD", 
-        return_expectations={"date": {"earliest": "2020-02-01"},"incidence" : 0.25,
+        return_expectations={"date": {"earliest": "2020-09-01"},"incidence" : 0.25,
             "category": {"ratios": {"U071":0.5, "U072":0.5}},
         },
     ),
 
     #ICU ADMISSION
     icu_date_admitted=patients.admitted_to_icu(
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         find_first_match_in_period=True,
         returning="date_admitted",
         date_format="YYYY-MM-DD",
         return_expectations={
-            "date": {"earliest" : "2020-02-01"},
+            "date": {"earliest" : "2020-09-01"},
             "rate" : "exponential_increase"
        },
     ),
 
     # cpns
     died_date_cpns=patients.with_death_recorded_in_cpns(
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         returning="date_of_death",
         include_month=True,
         include_day=True,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
 
     # ons
     died_ons_covid_flag_any=patients.with_these_codes_on_death_certificate(
         covid_codelist,
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         match_only_underlying_cause=False,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
     died_ons_confirmedcovid_flag_any=patients.with_these_codes_on_death_certificate(
         confirmed_covid_codelist,
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         match_only_underlying_cause=False,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
     died_ons_suspectedcovid_flag_any=patients.with_these_codes_on_death_certificate(
         suspected_covid_codelist,
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         match_only_underlying_cause=False,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
     died_ons_covid_flag_underlying=patients.with_these_codes_on_death_certificate(
         covid_codelist,
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         match_only_underlying_cause=True,
-        return_expectations={"date": {"earliest": "2020-02-01"}},
+        return_expectations={"date": {"earliest": "2020-09-01"}},
     ),
     died_date_ons=patients.died_from_any_cause(
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         returning="date_of_death",
         include_month=True,
         include_day=True,
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
     first_tested_for_covid=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="any",
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
     first_positive_test_date=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
         test_result="positive",
-        on_or_after="2020-02-01",
+        on_or_after="2020-09-01",
         find_first_match_in_period=True,
         returning="date",
         date_format="YYYY-MM-DD",
-        return_expectations={"date": {"earliest" : "2020-02-01"},
+        return_expectations={"date": {"earliest" : "2020-09-01"},
         "rate" : "exponential_increase"},
     ),
 
     ## DEMOGRAPHIC COVARIATES
     # AGE
     age=patients.age_as_of(
-        "2020-02-01",
+        "2020-09-01",
         return_expectations={
             "rate": "universal",
             "int": {"distribution": "population_ages"},
@@ -239,7 +239,7 @@ study = StudyDefinition(
 
     # DEPRIVIATION
     imd=patients.address_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="index_of_multiple_deprivation",
         round_to_nearest=100,
         return_expectations={
@@ -250,7 +250,7 @@ study = StudyDefinition(
 
     # RURAL OR URBAN LOCATION
     rural_urban=patients.address_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="rural_urban_classification",
         return_expectations={
             "rate": "universal",
@@ -260,7 +260,7 @@ study = StudyDefinition(
 
     # GEOGRAPHIC REGION CALLED STP
     stp=patients.registered_practice_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="stp_code",
         return_expectations={
             "rate": "universal",
@@ -283,7 +283,7 @@ study = StudyDefinition(
 
     # OTHER REGION
     region=patients.registered_practice_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="nuts1_region_name",
         return_expectations={
             "rate": "universal",
@@ -349,7 +349,7 @@ study = StudyDefinition(
     ## HOUSEHOLD INFORMATION
     # CAREHOME STATUS
     care_home_type=patients.care_home_status_as_of(
-        "2020-02-01",
+        "2020-09-01",
         categorised_as={
             "PC": """
               IsPotentialCareHome
@@ -371,7 +371,7 @@ study = StudyDefinition(
     ),
 
     hh_id=patients.household_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="pseudo_id",
         return_expectations={
             "int": {"distribution": "normal", "mean": 1000, "stddev": 200},
@@ -380,7 +380,7 @@ study = StudyDefinition(
     ),
 
     hh_size=patients.household_as_of(
-        "2020-02-01",
+        "2020-09-01",
         returning="household_size",
         return_expectations={
             "int": {"distribution": "normal", "mean": 8, "stddev": 1},
@@ -389,11 +389,11 @@ study = StudyDefinition(
     ),
 
     is_prison=patients.household_as_of(
-    "2020-02-01", returning="is_prison",
+    "2020-09-01", returning="is_prison",
      return_expectations={
             "rate": "exponential_increase",
             "incidence" : 0.20,
-            "date" : {"earliest" : "2020-02-01"},
+            "date" : {"earliest" : "2020-09-01"},
             "bool" : True,
         }
     ),
