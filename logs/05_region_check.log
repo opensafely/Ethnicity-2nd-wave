@@ -2,13 +2,13 @@
       name:  <unnamed>
        log:  /workspace/logs/05_region_check.log
   log type:  text
- opened on:   6 Jan 2021, 12:49:09
+ opened on:   6 Jan 2021, 13:01:37
 
 . 
 . use ./output/analysis_dataset.dta, clear
 
 . keep if carehome==0
-(1,191 observations deleted)
+(1,170 observations deleted)
 
 . 
 .  /* PROGRAMS TO AUTOMATE TABULATIONS=========================================
@@ -257,7 +257,7 @@
 . preserve
 
 . keep if onscoviddeath==1
-(6,589 observations deleted)
+(6,687 observations deleted)
 
 . file write tablecontent "COVID-19 deaths by region" _n
 
@@ -271,7 +271,7 @@
 . preserve
 
 . keep if onsdeath==1
-(6,577 observations deleted)
+(6,677 observations deleted)
 
 . file write tablecontent "All deaths by region" _n
 
@@ -291,5 +291,5 @@
       name:  <unnamed>
        log:  /workspace/logs/05_region_check.log
   log type:  text
- closed on:   6 Jan 2021, 12:49:09
+ closed on:   6 Jan 2021, 13:01:37
 -------------------------------------------------------------------------------
