@@ -44,7 +44,7 @@ actions:
         log: logs/02b_outcomes_checks_eth5.log
         table: output/table0_outcomes_eth5.txt
 
-    check_region:
+  check_region:
     run: stata-mp:latest analysis/05a_eth_region_check.do
     needs: [crmain]
     outputs:
