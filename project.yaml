@@ -11,4 +11,18 @@ actions:
         cohort: output/input.csv
 
 
-  
+    crmain:
+    run: stata-mp:latest analysis/01_eth_create_analysis_dataset.do
+    needs: [generate_cohorts]
+    outputs:
+      highly_sensitive:
+        data: analysis/01_eth_create_analysis_dataset.dta
+        stsettested: analysis/_analysisdataset_STSET_tested.dta
+        stsetpositiivetest: analysis/_analysisdataset_STSET_positivetest.dta
+        stseticu: analysis/_analysisdataset_STSET_icu.dta
+        stsethes: analysis/_analysisdataset_STSET_hes.dta
+        stsetonscoviddeath: analysis/_analysisdataset_STSET_onscoviddeath.dta
+        stsetons_noncoviddeath: analysis/_analysisdataset_STSET_ons_noncoviddeath.dta
+        stsetonsdeath: analysis/_analysisdataset_STSET_onsdeath.dta 
+      moderately_sensitive:
+        log: analysis/output/01_eth_create_analysis_dataset.log

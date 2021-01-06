@@ -1,9 +1,9 @@
 /*==============================================================================
-DO FILE NAME:			00_cr_analysis_dataset
-PROJECT:				Ethnicity and COVID outcomes
-DATE: 					12th July 2020 
-AUTHOR:					Rohini Mathur adapted from H Forbes, A Wong, A Schultze, C Rentsch,K Baskharan, E Williamson 										
-DESCRIPTION OF FILE:	program 00, data management for project  
+DO FILE NAME:			01_eth_cr_analysis_dataset
+PROJECT:				Ethnicity 2nd Wave
+DATE: 					6th Jan 2020
+AUTHOR:					Rohini Mathur 								
+DESCRIPTION OF FILE:	program 01, data management for project  
 						reformat variables 
 						categorise variables
 						label variables 
@@ -13,17 +13,17 @@ DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 
-import delimited `c(pwd)'/output/input.csv, clear
 							
 ==============================================================================*/
 
 * Open a log file
 cap log close
-log using "$Logdir/01_eth_cr_create_analysis_dataset.log", replace t
+log using ./analysis/output/01_eth_create_analysis_dataset, replace t
 
+clear
+import delimited ./output/input.csv
 
-di "STARTING safecount FROM IMPORT:"
-safecount
+global outcomes "tested positivetest icu hes onscoviddeath ons_noncoviddeath onsdeath"
 
 ****************************
 *  Create required cohort  *
@@ -154,16 +154,16 @@ foreach i of global outcomes {
 
 * Censoring dates for each outcome (last date outcome data available)
 *https://github.com/opensafely/rapid-reports/blob/master/notebooks/latest-dates.ipynb
-gen tested_censor_date = d("03/08/2020")
-gen positivetest_censor_date = d("03/08/2020")
-gen ae_censor_date = d("03/08/2020")
-gen hes_censor_date = d("03/08/2020")
+gen tested_censor_date = d("09/11/2020")
+gen positivetest_censor_date = d("09/11/2020")
+gen ae_censor_date = d("09/11/2020")
+gen hes_censor_date = d("09/11/2020")
 gen icu_censor_date = d("30/07/2020")
-gen cpnsdeath_censor_date  = d("03/08/2020")
-gen onsdeath_censor_date = d("03/08/2020")
-gen onscoviddeath_censor_date = d("03/08/2020")
-gen ons_noncoviddeath_censor_date = d("03/08/2020")
-gen onsconfirmeddeath_censor_date=d("03/08/2020")
+gen cpnsdeath_censor_date  = d("09/11/2020")
+gen onsdeath_censor_date = d("09/11/2020")
+gen onscoviddeath_censor_date = d("09/11/2020")
+gen ons_noncoviddeath_censor_date = d("09/11/2020")
+gen onsconfirmeddeath_censor_date=d("09/11/2020")
 
 *******************************************************************************
 format *censor_date %d
@@ -971,7 +971,7 @@ drop if onsdeath_date <= indexdate
 safecount 
 
 sort patient_id
-save "$Tempdir/analysis_dataset.dta", replace
+save ./analysis/analysis_dataset.dta", replace
 
 ****************************************************************
 *  Create outcome specific datasets for the whole population  *
@@ -979,11 +979,11 @@ save "$Tempdir/analysis_dataset.dta", replace
 
 
 foreach i of global outcomes {
-	use "$Tempdir/analysis_dataset.dta", clear
+	use ./analysis/analysis_dataset.dta, clear
 	drop if `i'_date <= indexdate 
 	stset stime_`i', fail(`i') 				///	
 	id(patient_id) enter(indexdate) origin(indexdate)
-	save "$Tempdir/analysis_dataset_STSET_`i'.dta", replace
+	save ./analysis/analysis_dataset_STSET_`i'.dta, replace
 }	
 
 
