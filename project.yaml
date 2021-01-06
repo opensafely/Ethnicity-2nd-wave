@@ -1,20 +1,91 @@
-version: '3.0'
+version: "3.0"
 
 expectations:
-  population_size: 1000
+  population_size: 100000
 
 actions:
-
-  generate_study_population:
+  generate_cohorts:
     run: cohortextractor:latest generate_cohort --study-definition study_definition
     outputs:
       highly_sensitive:
         cohort: output/input.csv
 
-  run_model:
-    run: stata-mp:latest analysis/model.do
-    needs: [generate_study_population]
+
+  crmain:
+    run: stata-mp:latest analysis/01_eth_cr_analysis_dataset.do
+    needs: [generate_cohorts]
+    outputs:
+      highly_sensitive:
+        data: output/analysis_dataset.dta
+        stsettested: output/analysis_dataset_STSET_tested.dta
+        stsetpositiivetest: output/analysis_dataset_STSET_positivetest.dta
+        stseticu: output/analysis_dataset_STSET_icu.dta
+        stsethes: output/analysis_dataset_STSET_hes.dta
+        stsetonscoviddeath: output/analysis_dataset_STSET_onscoviddeath.dta
+        stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
+        stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
+      moderately_sensitive:
+        log: logs/01_eth_cr_analysis_dataset.log
+
+  check_eth16:
+    run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
+    needs: [crmain]
     outputs:
       moderately_sensitive:
-        log: logs/model.log
+        log: logs/02a_outcomes_checks_eth16.log
+        table: output/table0_outcomes_eth16.txt
+
+
+  check_eth5:
+    run: stata-mp:latest analysis/02b_eth_outcomes_checks_eth5.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/02b_outcomes_checks_eth5.log
+        table: output/table0_outcomes_eth5.txt
+
+  check_region:
+    run: stata-mp:latest analysis/05a_eth_region_check.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/05_region_check.log
+        table: output/table3_region.txt
+
+  table1_eth16:
+    run: stata-mp:latest analysis/03a_eth_table1_descriptives_eth16_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/03a_eth_table1_eth16_nocarehomes.log
+        table: output/table1_eth16.txt
+
+  table1_eth5:
+    run: stata-mp:latest analysis/03b_eth_table1_descriptives_eth5_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/03b_eth_table1_eth5_nocarehomes.log
+        table: output/table1_eth5.txt
+
+  main_eth16:
+    run: stata-mp:latest analysis/04a_eth_an_multivariable_eth16_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/04a_eth_an_multivariable_eth16.log
+        table: output/table2_eth16.txt
+        estout: output/estout_table2_eth16.txt
+        graph: output/FP_multivariable_eth16.txt
+
+  main_eth5:
+    run: stata-mp:latest analysis/04b_eth_an_multivariable_eth5_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/04b_eth_an_multivariable_eth5.log
+        table: output/table2_eth5.txt
+        estout: output/estout_table2_eth5.txt
+        graph: output/FP_multivariable_eth5.txt
+
 
