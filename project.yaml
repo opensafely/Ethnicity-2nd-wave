@@ -17,15 +17,38 @@ actions:
     outputs:
       highly_sensitive:
         data: output/analysis_dataset.dta
+      moderately_sensitive:
+        log: logs/01_eth_cr_analysis_dataset.log
+  
+  cr_sgss:
+    run: stata-mp:latest analysis/01b_eth_cr_stset_sgss.do
+    needs: [crmain]
+    outputs:
+      highly_sensitive:
         stsettested: output/analysis_dataset_STSET_tested.dta
         stsetpositiivetest: output/analysis_dataset_STSET_positivetest.dta
-        stseticu: output/analysis_dataset_STSET_icu.dta
+      moderately_sensitive:
+        log: logs/01b_eth_cr_stset_sgss.log
+  
+  cr_hes_covid:
+    run: stata-mp:latest analysis/01c_eth_cr_stset_hes.do
+    needs: [crmain]
+    outputs:
+      highly_sensitive:
         stsethes: output/analysis_dataset_STSET_hes.dta
         stsetonscoviddeath: output/analysis_dataset_STSET_onscoviddeath.dta
+      moderately_sensitive:
+        log: logs/01c_eth_cr_stset_hes_covid.log
+
+  cr_ons:
+    run: stata-mp:latest analysis/01d_eth_cr_stset_death.do
+    needs: [crmain]
+    outputs:
+      highly_sensitive:
         stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
         stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
       moderately_sensitive:
-        log: logs/01_eth_cr_analysis_dataset.log
+        log: logs/01d_eth_cr_stset_death.log
 
   check_eth16:
     run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
