@@ -19,7 +19,6 @@ actions:
         data: output/analysis_dataset.dta
         stsettested: output/analysis_dataset_STSET_tested.dta
         stsetpositiivetest: output/analysis_dataset_STSET_positivetest.dta
-        stseticu: output/analysis_dataset_STSET_icu.dta
         stsethes: output/analysis_dataset_STSET_hes.dta
         stsetonscoviddeath: output/analysis_dataset_STSET_onscoviddeath.dta
         stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
