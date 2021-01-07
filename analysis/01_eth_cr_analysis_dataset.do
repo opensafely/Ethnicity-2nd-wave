@@ -974,7 +974,7 @@ safecount
 sort patient_id
 save ./output/analysis_dataset.dta, replace
 
-****************************************************************
+/****************************************************************
 *  Create outcome specific datasets for the whole population  *
 *****************************************************************
 
@@ -991,4 +991,4 @@ foreach i of global outcomes {
 	
 * Close log file 
 log close
-
+*/

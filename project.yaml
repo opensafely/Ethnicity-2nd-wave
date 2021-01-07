@@ -17,12 +17,38 @@ actions:
     outputs:
       highly_sensitive:
         data: output/analysis_dataset.dta
+      moderately_sensitive:
+        log: logs/01_eth_cr_analysis_dataset.log
+  
+  cr_sgss:
+    run: stata-mp:latest analysis/01b_eth_cr_stset_sgss.do
+    needs: [generate_cohorts]
+    outputs:
+      highly_sensitive:
         stsettested: output/analysis_dataset_STSET_tested.dta
         stsetpositiivetest: output/analysis_dataset_STSET_positivetest.dta
+      moderately_sensitive:
+        log: logs/01b_eth_cr_stset_sgss.log
+  
+  cr_hes:
+    run: stata-mp:latest analysis/01_eth_cr_analysis_dataset.do
+    needs: [generate_cohorts]
+    outputs:
+      highly_sensitive:
         stsethes: output/analysis_dataset_STSET_hes.dta
         stsetonscoviddeath: output/analysis_dataset_STSET_onscoviddeath.dta
         stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
         stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
+    outputs:
+      moderately_sensitive:
+        log: logs/01_eth_cr_analysis_dataset.log
+
+    cr_ons:
+    outputs:
+      stsetonscoviddeath: output/analysis_dataset_STSET_onscoviddeath.dta
+      stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
+      stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
+
       moderately_sensitive:
         log: logs/01_eth_cr_analysis_dataset.log
 
