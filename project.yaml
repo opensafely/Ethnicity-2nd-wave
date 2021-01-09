@@ -93,7 +93,7 @@ actions:
 
   main_eth16:
     run: stata-mp:latest analysis/04a_eth_an_multivariable_eth16_nocarehomes.do
-    needs: [crmain]
+    needs: [cr_sgss, cr_hes_covid, cr_ons]
     outputs:
       moderately_sensitive:
         log: logs/04a_eth_an_multivariable_eth16.log
@@ -103,7 +103,7 @@ actions:
 
   main_eth5:
     run: stata-mp:latest analysis/04b_eth_an_multivariable_eth5_nocarehomes.do
-    needs: [crmain]
+    needs: [cr_sgss, cr_hes_covid, cr_ons]
     outputs:
       moderately_sensitive:
         log: logs/04b_eth_an_multivariable_eth5.log
