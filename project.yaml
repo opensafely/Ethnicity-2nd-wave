@@ -80,7 +80,7 @@ actions:
     needs: [crmain]
     outputs:
       moderately_sensitive:
-        log: logs/03a_eth_table1_eth16_carehomes.log
+        log: logs/03a_eth_table1_eth16_nocarehomes.log
         table: output/table1_eth16.txt
 
   table1_eth5:
