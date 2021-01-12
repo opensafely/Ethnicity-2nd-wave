@@ -24,7 +24,7 @@ sysdir
 * Open a log file
 cap log close
 macro drop hr
-log using ./logs/04a_eth_an_multivariable_eth16, replace t 
+log using ./logs/04a_eth_an_multivariable_eth16.log, replace t 
 
 cap file close tablecontent
 file open tablecontent using ./output/table2_eth16.txt, write text replace
@@ -53,20 +53,20 @@ drop if carehome==1
 /* Univariable model */ 
 
 stcox i.ethnicity_16, strata(stp) nolog
-estimates save ./output/model/crude_`i'_eth16, replace 
+estimates save ./output/crude_`i'_eth16, replace 
 eststo model1
-parmest, label eform format(estimate p lb ub) saving(./output/model/crude_`i'_eth16, replace) idstr(crude_`i'_eth16) 
-local hr "`hr' ./output/model/crude_`i'_eth16 "
+parmest, label eform format(estimate p lb ub) saving(./output/crude_`i'_eth16, replace) idstr(crude_`i'_eth16) 
+local hr "`hr' ./output/crude_`i'_eth16 "
 
 
 /* Multivariable models */ 
 *Age and gender
 stcox i.ethnicity_16 i.male age1 age2 age3, strata(stp) nolog
-estimates save ./output/model/model0_`i'_eth16, replace 
+estimates save ./output/model0_`i'_eth16, replace 
 eststo model2
 
-parmest, label eform format(estimate p lb ub) saving(./output/model/model0_`i'_eth16, replace) idstr(model0_`i'_eth16)
-local hr "`hr' ./output/model/model0_`i'_eth16 "
+parmest, label eform format(estimate p lb ub) saving(./output/model0_`i'_eth16, replace) idstr(model0_`i'_eth16)
+local hr "`hr' ./output/model0_`i'_eth16 "
  
 
 * Age, Gender, IMD
@@ -74,11 +74,11 @@ local hr "`hr' ./output/model/model0_`i'_eth16 "
 stcox i.ethnicity_16 i.male age1 age2 age3 i.imd, strata(stp) nolog
 if _rc==0{
 estimates
-estimates save ./output/model/model1_`i'_eth16, replace 
+estimates save ./output/model1_`i'_eth16, replace 
 eststo model3
 
-parmest, label eform format(estimate p lb ub) saving(./output/model/model1_`i'_eth16, replace) idstr(model1_`i'_eth16) 
-local hr "`hr' ./output/model/model1_`i'_eth16 "
+parmest, label eform format(estimate p lb ub) saving(./output/model1_`i'_eth16, replace) idstr(model1_`i'_eth16) 
+local hr "`hr' ./output/model1_`i'_eth16 "
 }
 else di "WARNING MODEL1 DID NOT FIT (OUTCOME `i')"
 
@@ -103,11 +103,11 @@ stcox i.ethnicity_16 i.male age1 age2 age3 	i.imd						///
 										i.ra_sle_psoriasis, strata(stp) nolog		
 if _rc==0{
 estimates
-estimates save ./output/model/model2_`i'_eth16, replace 
+estimates save ./output/model2_`i'_eth16, replace 
 eststo model4
 
-parmest, label eform format(estimate p lb ub) saving(./output/model/model2_`i'_eth16, replace) idstr(model2_`i'_eth16) 
-local hr "`hr' ./output/model/model2_`i'_eth16 "
+parmest, label eform format(estimate p lb ub) saving(./output/model2_`i'_eth16, replace) idstr(model2_`i'_eth16) 
+local hr "`hr' ./output/model2_`i'_eth16 "
 }
 else di "WARNING MODEL2 DID NOT FIT (OUTCOME `i')"
 
@@ -132,11 +132,11 @@ stcox i.ethnicity_16 i.male age1 age2 age3 	i.imd						///
 										i.immunosuppressed	 		///
 										i.ra_sle_psoriasis			///
 										i.hh_total_cat, strata(stp) nolog		
-estimates save ./output/model/model3_`i'_eth16, replace
+estimates save ./output/model3_`i'_eth16, replace
 eststo model5
 
-parmest, label eform format(estimate p lb ub) saving(./output/model/model3_`i'_eth16, replace) idstr(model3_`i'_eth16) 
-local hr "`hr' ./output/model/model3_`i'_eth16 "
+parmest, label eform format(estimate p lb ub) saving(./output/model3_`i'_eth16, replace) idstr(model3_`i'_eth16) 
+local hr "`hr' ./output/model3_`i'_eth16 "
 
 
 
@@ -201,23 +201,23 @@ forvalues eth=2/17 {
 	local person_week = r(mean)/7
 	local rate = 1000*(`event'/`person_week')
 	file write tablecontent  ("`lab`eth''") _tab (`denominator') _tab (`event') _tab %10.0f (`person_week') _tab %3.2f (`rate') _tab  
-	cap estimates use ./output/model/crude_`i'_eth16 
+	cap estimates use ./output/crude_`i'_eth16 
 	 cap lincom `eth'.ethnicity_16, eform
 	file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (" - ") %4.2f (r(ub)) (")") _tab 
 	cap estimates clear
-	cap estimates use ./output/model/model0_`i'_eth16 
+	cap estimates use ./output/model0_`i'_eth16 
 	 cap lincom `eth'.ethnicity_16, eform
 	file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (" - ") %4.2f (r(ub)) (")") _tab 
 	cap estimates clear
-	cap estimates use ./output/model/model1_`i'_eth16 
+	cap estimates use ./output/model1_`i'_eth16 
 	 cap lincom `eth'.ethnicity_16, eform
 	file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (" - ") %4.2f (r(ub)) (")") _tab 
 	cap estimates clear
-	cap estimates use ./output/model/model2_`i'_eth16 
+	cap estimates use ./output/model2_`i'_eth16 
 	 cap lincom `eth'.ethnicity_16, eform
 	file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (" - ") %4.2f (r(ub)) (")") _tab 
 	cap estimates clear
-	cap estimates use ./output/model/model3_`i'_eth16 
+	cap estimates use ./output/model3_`i'_eth16 
 	 cap lincom `eth'.ethnicity_16, eform
 	file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (" - ") %4.2f (r(ub)) (")") _n
 }  //end ethnic group

@@ -349,7 +349,7 @@ study = StudyDefinition(
     ## HOUSEHOLD INFORMATION
     # CAREHOME STATUS
     care_home_type=patients.care_home_status_as_of(
-        "2020-02-01",
+        "2020-09-01",
         categorised_as={
             "PC": """
               IsPotentialCareHome
