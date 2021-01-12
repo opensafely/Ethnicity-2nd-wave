@@ -18,7 +18,7 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 * Open a log file
 cap log close
-log using ./logs/01b_eth_cr_stset_hes_covid.log, replace t
+log using ./logs/01b_eth_cr_stset_hes_covid.log, replace t //hes and covid
 
 global outcomes "hes onscoviddeath"
 
