@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /workspace/logs/01c_eth_cr_stset_hes_covid.log
   log type:  text
- opened on:  12 Jan 2021, 10:50:21
+ opened on:  12 Jan 2021, 11:01:22
 
 . 
 . global outcomes "hes onscoviddeath"
@@ -31,13 +31,13 @@ obs. time interval:  (stime_hes[_n-1], stime_hes]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-        795  total observations
+        776  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-        795  observations remaining, representing
-        795  subjects
-         94  failures in single-failure-per-subject data
-    220,716  total analysis time at risk and under observation
+        776  observations remaining, representing
+        776  subjects
+        110  failures in single-failure-per-subject data
+    215,094  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -54,13 +54,13 @@ obs. time interval:  (stime_onscoviddeath[_n-1], stime_onscoviddeath]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-        795  total observations
+        776  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-        795  observations remaining, representing
-        795  subjects
-          1  failure in single-failure-per-subject data
-    224,181  total analysis time at risk and under observation
+        776  observations remaining, representing
+        776  subjects
+          0  failures in single-failure-per-subject data
+    218,832  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -75,5 +75,5 @@ file ./output/analysis_dataset_STSET_onscoviddeath.dta saved
       name:  <unnamed>
        log:  /workspace/logs/01c_eth_cr_stset_hes_covid.log
   log type:  text
- closed on:  12 Jan 2021, 10:50:21
+ closed on:  12 Jan 2021, 11:01:22
 -------------------------------------------------------------------------------
