@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /workspace/logs/03d_eth_table1_eth5_carehomes.log
+       log:  /workspace/logs/03c_eth_table1_eth16_carehomes.log
   log type:  text
- opened on:  12 Jan 2021, 14:06:00
+ opened on:  12 Jan 2021, 14:06:49
 
 . 
 . * Open Stata dataset
@@ -11,20 +11,11 @@
 . keep if carehome==1
 (675 observations deleted)
 
-. safetab eth5,m 
-5
+. safetab ethnicity_16,m 
+13
 
-      Eth 5 |
- categories |      Freq.     Percent        Cum.
-------------+-----------------------------------
-      White |         14       12.07       12.07
-South Asian |         18       15.52       27.59
-      Black |         16       13.79       41.38
-      Mixed |         17       14.66       56.03
-      Other |         22       18.97       75.00
-    Unknown |         29       25.00      100.00
-------------+-----------------------------------
-      Total |        116      100.00
+**TABLE OF ethnicity_16 REDACTED DUE TO SMALL N**
+
 
 . 
 .  /* PROGRAMS TO AUTOMATE TABULATIONS=========================================
@@ -43,19 +34,19 @@ South Asian |         18       15.52       27.59
 .         qui cou
   3.         local overalldenom=r(N)
   4.         
-.         qui sum `variable' if `variable' `condition'
+.         sum `variable' if `variable' `condition'
   5.         file write tablecontent (r(max)) _tab
   6.         
-.         qui cou   if `variable' `condition'
+.         qui cou if `variable' `condition'
   7.         local rowdenom = r(N)
   8.         local colpct = 100*(r(N)/`overalldenom')
   9.         file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct
 > ') (")") _tab
  10. 
-.         forvalues i=1/6{
- 11.         qui cou if eth5 == `i'
+.         forvalues i=1/17{
+ 11.         qui cou if ethnicity_16 == `i'
  12.         local rowdenom = r(N)
- 13.         qui cou if eth5 == `i' & `variable' `condition'
+ 13.         qui cou if ethnicity_16 == `i' & `variable' `condition'
  14.         local pct = 100*(r(N)/`rowdenom') 
  15.         file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _
 > tab
@@ -82,10 +73,10 @@ South Asian |         18       15.52       27.59
   7.         file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct
 > ') (")") _tab
   8. 
-.         forvalues i=1/6{
-  9.         qui cou if eth5 == `i'
+.         forvalues i=1/17{
+  9.         qui cou if ethnicity_16 == `i'
  10.         local rowdenom = r(N)
- 11.         qui cou if eth5 == `i' & `variable' `condition'
+ 11.         qui cou if ethnicity_16 == `i' & `variable' `condition'
  12.         local pct = 100*(r(N)/`rowdenom') 
  13.         file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _
 > tab
@@ -177,9 +168,9 @@ South Asian |         18       15.52       27.59
   6.         file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")"
 > ) _tab
   7.         
-.         forvalues i=1/6{                                                     
+.         forvalues i=1/17{                                                    
 >    
-  8.         qui summarize `variable' if eth5 == `i', d
+  8.         qui summarize `variable' if ethnicity_16 == `i', d
   9.         file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")"
 > ) _tab
  10.         }
@@ -192,8 +183,8 @@ South Asian |         18       15.52       27.59
  14.         file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-")
 >  %3.1f (r(p75)) (")") _tab
  15.         
-.         forvalues i=1/6{
- 16.         qui summarize `variable' if eth5 == `i', d
+.         forvalues i=1/17{
+ 16.         qui summarize `variable' if ethnicity_16 == `i', d
  17.         file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-")
 >  %3.1f (r(p75)) (")") _tab
  18.         }
@@ -209,28 +200,50 @@ South Asian |         18       15.52       27.59
 . *Set up output file
 . cap file close tablecontent
 
-. file open tablecontent using ./output/table1_eth5_carehomes.txt, write text r
-> eplace
-(note: file ./output/table1_eth5_carehomes.txt not found)
+. file open tablecontent using ./output/table1_eth16_carehomes.txt, write text 
+> replace
+(note: file ./output/table1_eth16_carehomes.txt not found)
 
 . 
-. file write tablecontent ("Table 1: Demographic and Clinical Characteristics- 
-> Care Home Population") _n
+. file write tablecontent ("Table 1: Demographic and Clinical Characteristics o
+> f Care Home Populations") _n
 
 . 
-. * eth5 labelled columns
+. * ethnicity_16 labelled columns
 . 
-. local lab1: label eth5 1
+. local lab1: label ethnicity_16 1
 
-. local lab2: label eth5 2
+. local lab2: label ethnicity_16 2
 
-. local lab3: label eth5 3
+. local lab3: label ethnicity_16 3
 
-. local lab4: label eth5 4
+. local lab4: label ethnicity_16 4
 
-. local lab5: label eth5 5
+. local lab5: label ethnicity_16 5
 
-. local lab6: label eth5 6
+. local lab6: label ethnicity_16 6
+
+. local lab7: label ethnicity_16 7
+
+. local lab8: label ethnicity_16 8
+
+. local lab9: label ethnicity_16 9
+
+. local lab10: label ethnicity_16 10
+
+. local lab11: label ethnicity_16 11
+
+. local lab12: label ethnicity_16 12
+
+. local lab13: label ethnicity_16 13
+
+. local lab14: label ethnicity_16 14
+
+. local lab15: label ethnicity_16 15
+
+. local lab16: label ethnicity_16 16
+
+. local lab17: label ethnicity_16 17
 
 . 
 . 
@@ -248,8 +261,29 @@ South Asian |         18       15.52       27.59
 >                                                          ("`lab5'")          
 >                                      _tab ///
 >                                                          ("`lab6'")          
->                                      _n                                      
->                
+>                                      _tab ///
+>                                                          ("`lab7'")          
+>                                      _tab ///
+>                                                          ("`lab8'")          
+>                                      _tab ///
+>                                                          ("`lab9'")          
+>                                      _tab ///
+>                                                          ("`lab10'")         
+>                                      _tab ///
+>                                                          ("`lab11'")         
+>                                      _tab ///
+>                                                          ("`lab12'")         
+>                                      _tab ///
+>                                                          ("`lab13'")         
+>                                      _tab ///
+>                                                          ("`lab14'")         
+>                                      _tab ///
+>                                                          ("`lab15'")         
+>                                      _tab ///
+>                                                          ("`lab16'")         
+>                                      _tab ///
+>                                                          ("`lab17'")         
+>                                      _n 
 
 .                                                          
 . 
@@ -393,18 +427,15 @@ South Asian |         18       15.52       27.59
   6. }
 
 . 
-. qui tabulatevariable, variable(dm_type_exeter_os) min(0) max(2)  
-
-. file write tablecontent _n 
-
 . 
 . file close tablecontent
 
 . 
+. 
 . * Close log file 
 . log close
       name:  <unnamed>
-       log:  /workspace/logs/03d_eth_table1_eth5_carehomes.log
+       log:  /workspace/logs/03c_eth_table1_eth16_carehomes.log
   log type:  text
- closed on:  12 Jan 2021, 14:06:00
+ closed on:  12 Jan 2021, 14:06:49
 -------------------------------------------------------------------------------
