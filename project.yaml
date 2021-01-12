@@ -67,13 +67,6 @@ actions:
         log: logs/02b_outcomes_checks_eth5.log
         table: output/table0_outcomes_eth5.txt
 
-  check_region:
-    run: stata-mp:latest analysis/05a_eth_region_check.do
-    needs: [crmain]
-    outputs:
-      moderately_sensitive:
-        log: logs/05_region_check.log
-        table: output/table3_region.txt
 
   table1_eth16:
     run: stata-mp:latest analysis/03a_eth_table1_descriptives_eth16_nocarehomes.do
