@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /workspace/logs/01d_eth_cr_stset_death.log
+       log:  /workspace/logs/01c_eth_cr_stset_hes_covid.log
   log type:  text
- opened on:  12 Jan 2021, 20:15:53
+ opened on:  12 Jan 2021, 20:15:18
 
 . 
-. global outcomes "ons_noncoviddeath onsdeath"
+. global outcomes "hes onscoviddeath"
 
 . 
 . ****************************************************************
@@ -23,8 +23,8 @@
 (0 observations deleted)
 
                 id:  patient_id
-     failure event:  ons_noncoviddeath != 0 & ons_noncoviddeath < .
-obs. time interval:  (stime_ons_noncoviddeath[_n-1], stime_ons_noncoviddeath]
+     failure event:  hes != 0 & hes < .
+obs. time interval:  (stime_hes[_n-1], stime_hes]
  enter on or after:  time indexdate
  exit on or before:  failure
     t for analysis:  (time-origin)
@@ -36,18 +36,18 @@ obs. time interval:  (stime_ons_noncoviddeath[_n-1], stime_ons_noncoviddeath]
 ------------------------------------------------------------------------------
      78,939  observations remaining, representing
      78,939  subjects
-        102  failures in single-failure-per-subject data
-   22259229  total analysis time at risk and under observation
+     10,159  failures in single-failure-per-subject data
+   21914435  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
-(note: file ./output/analysis_dataset_STSET_ons_noncoviddeath.dta not found)
-file ./output/analysis_dataset_STSET_ons_noncoviddeath.dta saved
+(note: file ./output/analysis_dataset_STSET_hes.dta not found)
+file ./output/analysis_dataset_STSET_hes.dta saved
 (0 observations deleted)
 
                 id:  patient_id
-     failure event:  onsdeath != 0 & onsdeath < .
-obs. time interval:  (stime_onsdeath[_n-1], stime_onsdeath]
+     failure event:  onscoviddeath != 0 & onscoviddeath < .
+obs. time interval:  (stime_onscoviddeath[_n-1], stime_onscoviddeath]
  enter on or after:  time indexdate
  exit on or before:  failure
     t for analysis:  (time-origin)
@@ -59,13 +59,13 @@ obs. time interval:  (stime_onsdeath[_n-1], stime_onsdeath]
 ------------------------------------------------------------------------------
      78,939  observations remaining, representing
      78,939  subjects
-        119  failures in single-failure-per-subject data
+         17  failures in single-failure-per-subject data
    22259229  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
-(note: file ./output/analysis_dataset_STSET_onsdeath.dta not found)
-file ./output/analysis_dataset_STSET_onsdeath.dta saved
+(note: file ./output/analysis_dataset_STSET_onscoviddeath.dta not found)
+file ./output/analysis_dataset_STSET_onscoviddeath.dta saved
 
 . 
 . 
@@ -73,7 +73,7 @@ file ./output/analysis_dataset_STSET_onsdeath.dta saved
 . * Close log file 
 . log close
       name:  <unnamed>
-       log:  /workspace/logs/01d_eth_cr_stset_death.log
+       log:  /workspace/logs/01c_eth_cr_stset_hes_covid.log
   log type:  text
- closed on:  12 Jan 2021, 20:15:58
+ closed on:  12 Jan 2021, 20:15:22
 -------------------------------------------------------------------------------
