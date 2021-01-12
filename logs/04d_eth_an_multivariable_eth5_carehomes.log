@@ -2,12 +2,13 @@
       name:  <unnamed>
        log:  /workspace/logs/04d_eth_an_multivariable_eth5_carehomes.log
   log type:  text
- opened on:  12 Jan 2021, 15:21:13
+ opened on:  12 Jan 2021, 17:04:18
 
 . cap file close tablecontent
 
-. file open tablecontent using ./output/table2_eth5.txt, write text replace
-(note: file ./output/table2_eth5.txt not found)
+. file open tablecontent using ./output/table2_eth5_carehomes.txt, write text r
+> eplace
+(note: file ./output/table2_eth5_carehomes.txt not found)
 
 . 
 . file write tablecontent ("Table 2: Association between ethnicity in 5 categor
@@ -2789,5 +2790,5 @@ idstr1  idstr2  idstr3  idstr4
       name:  <unnamed>
        log:  /workspace/logs/04d_eth_an_multivariable_eth5_carehomes.log
   log type:  text
- closed on:  12 Jan 2021, 15:21:28
+ closed on:  12 Jan 2021, 17:04:32
 -------------------------------------------------------------------------------
