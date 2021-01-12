@@ -28,7 +28,7 @@ USER-INSTALLED ADO:
 
 * Open a log file
 capture log close
-log using ./logs/03b_eth_table1_eth5_nocarehomes.log, replace t
+log using ./logs/03b_eth_table1_eth5.log, replace t
 
 * Open Stata dataset
 use ./output/analysis_dataset.dta, clear
