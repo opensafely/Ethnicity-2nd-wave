@@ -371,7 +371,7 @@ study = StudyDefinition(
     ),
 
     hh_id=patients.household_as_of(
-        "2020-09-01",
+        "2020-02-01",
         returning="pseudo_id",
         return_expectations={
             "int": {"distribution": "normal", "mean": 1000, "stddev": 200},
@@ -380,7 +380,7 @@ study = StudyDefinition(
     ),
 
     hh_size=patients.household_as_of(
-        "2020-09-01",
+        "2020-02-01",
         returning="household_size",
         return_expectations={
             "int": {"distribution": "normal", "mean": 8, "stddev": 1},
@@ -389,7 +389,7 @@ study = StudyDefinition(
     ),
 
     is_prison=patients.household_as_of(
-    "2020-09-01", returning="is_prison",
+    "2020-02-01", returning="is_prison",
      return_expectations={
             "rate": "exponential_increase",
             "incidence" : 0.20,
