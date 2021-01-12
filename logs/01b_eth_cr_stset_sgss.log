@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /workspace/logs/01b_eth_cr_stset_sgss.log
   log type:  text
- opened on:  12 Jan 2021, 14:15:18
+ opened on:  12 Jan 2021, 17:37:15
 
 . 
 . global outcomes "tested positivetest"
@@ -31,13 +31,13 @@ obs. time interval:  (stime_tested[_n-1], stime_tested]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-      7,878  total observations
+      7,825  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-      7,878  observations remaining, representing
-      7,878  subjects
-         14  failures in single-failure-per-subject data
-  2,221,218  total analysis time at risk and under observation
+      7,825  observations remaining, representing
+      7,825  subjects
+         11  failures in single-failure-per-subject data
+  2,206,398  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -54,13 +54,13 @@ obs. time interval:  (stime_positivetest[_n-1], stime_positivetest]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-      7,878  total observations
+      7,825  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-      7,878  observations remaining, representing
-      7,878  subjects
-         10  failures in single-failure-per-subject data
-  2,221,269  total analysis time at risk and under observation
+      7,825  observations remaining, representing
+      7,825  subjects
+         11  failures in single-failure-per-subject data
+  2,206,346  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -75,5 +75,5 @@ file ./output/analysis_dataset_STSET_positivetest.dta saved
       name:  <unnamed>
        log:  /workspace/logs/01b_eth_cr_stset_sgss.log
   log type:  text
- closed on:  12 Jan 2021, 14:15:18
+ closed on:  12 Jan 2021, 17:37:16
 -------------------------------------------------------------------------------

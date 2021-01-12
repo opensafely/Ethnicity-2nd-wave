@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /workspace/logs/01d_eth_cr_stset_death.log
   log type:  text
- opened on:  12 Jan 2021, 14:16:13
+ opened on:  12 Jan 2021, 17:38:32
 
 . 
 . global outcomes "ons_noncoviddeath onsdeath"
@@ -31,13 +31,13 @@ obs. time interval:  (stime_ons_noncoviddeath[_n-1], stime_ons_noncoviddeath]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-      7,878  total observations
+      7,825  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-      7,878  observations remaining, representing
-      7,878  subjects
+      7,825  observations remaining, representing
+      7,825  subjects
          11  failures in single-failure-per-subject data
-  2,221,433  total analysis time at risk and under observation
+  2,206,488  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -54,13 +54,13 @@ obs. time interval:  (stime_onsdeath[_n-1], stime_onsdeath]
             origin:  time indexdate
 
 ------------------------------------------------------------------------------
-      7,878  total observations
+      7,825  total observations
           0  exclusions
 ------------------------------------------------------------------------------
-      7,878  observations remaining, representing
-      7,878  subjects
-         15  failures in single-failure-per-subject data
-  2,221,433  total analysis time at risk and under observation
+      7,825  observations remaining, representing
+      7,825  subjects
+         14  failures in single-failure-per-subject data
+  2,206,488  total analysis time at risk and under observation
                                                 at risk from t =         0
                                      earliest observed entry t =         0
                                           last observed exit t =       282
@@ -75,5 +75,5 @@ file ./output/analysis_dataset_STSET_onsdeath.dta saved
       name:  <unnamed>
        log:  /workspace/logs/01d_eth_cr_stset_death.log
   log type:  text
- closed on:  12 Jan 2021, 14:16:13
+ closed on:  12 Jan 2021, 17:38:32
 -------------------------------------------------------------------------------
