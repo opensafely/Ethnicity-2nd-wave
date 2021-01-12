@@ -1,15 +1,15 @@
 -------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /workspace/logs/03b_eth_table1_eth5_nocarehomes.log
+       log:  /workspace/logs/03b_eth_table1_eth5.log
   log type:  text
- opened on:   6 Jan 2021, 13:02:20
+ opened on:  12 Jan 2021, 17:41:54
 
 . 
 . * Open Stata dataset
 . use ./output/analysis_dataset.dta, clear
 
 . drop if carehome==1
-(1,170 observations deleted)
+(1,133 observations deleted)
 
 . safetab eth5,m 
 5
@@ -17,14 +17,14 @@
       Eth 5 |
  categories |      Freq.     Percent        Cum.
 ------------+-----------------------------------
-      White |      1,050       15.70       15.70
-South Asian |        975       14.58       30.28
-      Black |        998       14.92       45.20
-      Mixed |      1,011       15.12       60.32
-      Other |        994       14.86       75.18
-    Unknown |      1,660       24.82      100.00
+      White |        990       14.79       14.79
+South Asian |      1,043       15.59       30.38
+      Black |        996       14.88       45.26
+      Mixed |        973       14.54       59.80
+      Other |        992       14.82       74.63
+    Unknown |      1,698       25.37      100.00
 ------------+-----------------------------------
-      Total |      6,688      100.00
+      Total |      6,692      100.00
 
 . 
 .  /* PROGRAMS TO AUTOMATE TABULATIONS=========================================
@@ -403,7 +403,7 @@ South Asian |        975       14.58       30.28
 . * Close log file 
 . log close
       name:  <unnamed>
-       log:  /workspace/logs/03b_eth_table1_eth5_nocarehomes.log
+       log:  /workspace/logs/03b_eth_table1_eth5.log
   log type:  text
- closed on:   6 Jan 2021, 13:02:22
+ closed on:  12 Jan 2021, 17:41:56
 -------------------------------------------------------------------------------

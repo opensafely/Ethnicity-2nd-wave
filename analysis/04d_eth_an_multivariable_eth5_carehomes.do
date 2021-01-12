@@ -1,5 +1,5 @@
 /*==============================================================================
-DO FILE NAME:			04b_eth_an_multivariable_eth5_nocarehomes
+DO FILE NAME:			04d_eth_an_multivariable_eth5_carehomes
 PROJECT:				Ethnicity and COVID
 AUTHOR:					R Mathur (modified from A wong and A Schultze)
 DATE: 					15 July 2020					
@@ -25,9 +25,9 @@ sysdir
 * Open a log file
 cap log close
 macro drop hr
-log using ./logs/04b_eth_an_multivariable_eth5.log, replace t 
+log using ./logs/04d_eth_an_multivariable_eth5_carehomes.log, replace t 
 cap file close tablecontent
-file open tablecontent using ./output//table2_eth5.txt, write text replace
+file open tablecontent using ./output/table2_eth5_carehomes.txt, write text replace
 
 file write tablecontent ("Table 2: Association between ethnicity in 5 categories and COVID-19 outcomes - No care homes") _n
 file write tablecontent _tab ("Denominator") _tab ("Event") _tab ("Total person-weeks") _tab ("Rate per 1,000") _tab ("Crude") _tab _tab ("Age/Sex Adjusted") _tab _tab ("Age/Sex/IMD Adjusted") _tab _tab 	("plus co-morbidities") _tab _tab 	("plus hh size")  _tab _tab  _n
@@ -37,7 +37,7 @@ file write tablecontent _tab _tab _tab _tab _tab   ("HR") _tab ("95% CI") _tab (
 
 foreach i of global outcomes {
 use ./output/analysis_dataset_STSET_`i'.dta, clear
-drop if carehome==1
+keep if carehome==1
 safetab eth5 `i', missing row
 } //end outcomes
 
@@ -46,7 +46,7 @@ foreach i of global outcomes {
 	
 * Open Stata dataset
 use ./output/analysis_dataset_STSET_`i'.dta, clear
-drop if carehome==1
+keep if carehome==1
 
 
 /* Main Model=================================================================*/
@@ -142,7 +142,7 @@ local hr "`hr' ./output/model3_`i'_eth5 "
 
 
 /* Estout================================================================*/ 
-esttab model1 model2 model3 model4 model5 using ./output//estout_table2_eth5.txt, b(a2) ci(2) label wide compress eform ///
+esttab model1 model2 model3 model4 model5 using ./output/estout_table2_eth5_carehomes.txt, b(a2) ci(2) label wide compress eform ///
 	title ("`i'") ///
 	varlabels(`e(labels)') ///
 	stats(N_sub) ///
@@ -227,7 +227,7 @@ drop idstr idstr3
 tab model
 
 *save dataset for later
-outsheet using ./output/FP_multivariable_eth5.txt, replace
+outsheet using ./output/FP_multivariable_eth5_carehomes.txt, replace
 
 * Close log file 
 log close

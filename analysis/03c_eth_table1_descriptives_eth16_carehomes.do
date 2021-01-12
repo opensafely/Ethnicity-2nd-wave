@@ -1,11 +1,11 @@
 /*==============================================================================
-DO FILE NAME:			03b_eth_table1_descriptives_eth5_nocarehomess
+DO FILE NAME:			03c_eth_table1_descriptives_eth16_carehomes
 PROJECT:				Ethnicity 2nd wave
 DATE: 					6th Jan 2020
 AUTHOR:					R Mathur
 						adapted from A Schultze 	
 DESCRIPTION OF FILE:	Produce a table of baseline characteristics, by ethnicity
-						Generalised to produce same columns as levels of eth5
+						Generalised to produce same columns as levels of eth16
 						Output to a textfile for further formatting
 DATASETS USED:			$Tempdir\analysis_dataset.dta
 DATASETS CREATED: 		None
@@ -28,12 +28,12 @@ USER-INSTALLED ADO:
 
 * Open a log file
 capture log close
-log using ./logs/03b_eth_table1_eth5.log, replace t
+log using ./logs/03c_eth_table1_eth16_carehomes.log, replace t
 
 * Open Stata dataset
 use ./output/analysis_dataset.dta, clear
-drop if carehome==1
-safetab eth5,m 
+keep if carehome==1
+safetab ethnicity_16,m 
 
  /* PROGRAMS TO AUTOMATE TABULATIONS===========================================*/ 
 
@@ -48,18 +48,18 @@ syntax, variable(varname) condition(string)
 	qui cou
 	local overalldenom=r(N)
 	
-	qui sum `variable' if `variable' `condition'
+	sum `variable' if `variable' `condition'
 	file write tablecontent (r(max)) _tab
 	
-	qui cou   if `variable' `condition'
+	qui cou if `variable' `condition'
 	local rowdenom = r(N)
 	local colpct = 100*(r(N)/`overalldenom')
 	file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct') (")") _tab
 
-	forvalues i=1/6{
-	qui cou if eth5 == `i'
+	forvalues i=1/17{
+	qui cou if ethnicity_16 == `i'
 	local rowdenom = r(N)
-	qui cou if eth5 == `i' & `variable' `condition'
+	qui cou if ethnicity_16 == `i' & `variable' `condition'
 	local pct = 100*(r(N)/`rowdenom') 
 	file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _tab
 	}
@@ -82,10 +82,10 @@ syntax, variable(varname) condition(string)
 	local colpct = 100*(r(N)/`overalldenom')
 	file write tablecontent %9.0gc (`rowdenom')  (" (") %3.1f (`colpct') (")") _tab
 
-	forvalues i=1/6{
-	qui cou if eth5 == `i'
+	forvalues i=1/17{
+	qui cou if ethnicity_16 == `i'
 	local rowdenom = r(N)
-	qui cou if eth5 == `i' & `variable' `condition'
+	qui cou if ethnicity_16 == `i' & `variable' `condition'
 	local pct = 100*(r(N)/`rowdenom') 
 	file write tablecontent %9.0gc (r(N)) (" (") %3.1f (`pct') (")") _tab
 	}
@@ -165,8 +165,8 @@ syntax, variable(varname)
 	file write tablecontent ("Mean (SD)") _tab 
 	file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")") _tab
 	
-	forvalues i=1/6{							
-	qui summarize `variable' if eth5 == `i', d
+	forvalues i=1/17{							
+	qui summarize `variable' if ethnicity_16 == `i', d
 	file write tablecontent  %3.1f (r(mean)) (" (") %3.1f (r(sd)) (")") _tab
 	}
 
@@ -177,8 +177,8 @@ file write tablecontent _n
 	file write tablecontent ("Median (IQR)") _tab 
 	file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-") %3.1f (r(p75)) (")") _tab
 	
-	forvalues i=1/6{
-	qui summarize `variable' if eth5 == `i', d
+	forvalues i=1/17{
+	qui summarize `variable' if ethnicity_16 == `i', d
 	file write tablecontent %3.1f (r(p50)) (" (") %3.1f (r(p25)) ("-") %3.1f (r(p75)) (")") _tab
 	}
 	
@@ -190,18 +190,29 @@ end
 
 *Set up output file
 cap file close tablecontent
-file open tablecontent using ./output/table1_eth5.txt, write text replace
+file open tablecontent using ./output/table1_eth16_carehomes.txt, write text replace
 
-file write tablecontent ("Table 1: Demographic and Clinical Characteristics- No care omes") _n
+file write tablecontent ("Table 1: Demographic and Clinical Characteristics of Care Home Populations") _n
 
-* eth5 labelled columns
+* ethnicity_16 labelled columns
 
-local lab1: label eth5 1
-local lab2: label eth5 2
-local lab3: label eth5 3
-local lab4: label eth5 4
-local lab5: label eth5 5
-local lab6: label eth5 6
+local lab1: label ethnicity_16 1
+local lab2: label ethnicity_16 2
+local lab3: label ethnicity_16 3
+local lab4: label ethnicity_16 4
+local lab5: label ethnicity_16 5
+local lab6: label ethnicity_16 6
+local lab7: label ethnicity_16 7
+local lab8: label ethnicity_16 8
+local lab9: label ethnicity_16 9
+local lab10: label ethnicity_16 10
+local lab11: label ethnicity_16 11
+local lab12: label ethnicity_16 12
+local lab13: label ethnicity_16 13
+local lab14: label ethnicity_16 14
+local lab15: label ethnicity_16 15
+local lab16: label ethnicity_16 16
+local lab17: label ethnicity_16 17
 
 
 
@@ -211,7 +222,18 @@ file write tablecontent _tab ("Total")				  			  _tab ///
 							 ("`lab3'")  						  _tab ///
 							 ("`lab4'")  						  _tab ///
 							 ("`lab5'")  						  _tab ///
-							 ("`lab6'")  						  _n 							 
+							 ("`lab6'")  						  _tab ///
+							 ("`lab7'")  						  _tab ///
+							 ("`lab8'")  						  _tab ///
+							 ("`lab9'")  						  _tab ///
+							 ("`lab10'")  						  _tab ///
+							 ("`lab11'")  						  _tab ///
+							 ("`lab12'")  						  _tab ///
+							 ("`lab13'")  						  _tab ///
+							 ("`lab14'")  						  _tab ///
+							 ("`lab15'")  						  _tab ///
+							 ("`lab16'")  						  _tab ///
+							 ("`lab17'")  						  _n 
 							 
 
 
@@ -314,10 +336,10 @@ generaterow2, variable(`treat') condition("==1")
 file write tablecontent _n
 }
 
-qui tabulatevariable, variable(dm_type_exeter_os) min(0) max(2)  
-file write tablecontent _n 
 
 file close tablecontent
 
+
 * Close log file 
 log close
+

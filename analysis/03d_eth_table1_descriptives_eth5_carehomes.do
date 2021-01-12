@@ -1,5 +1,5 @@
 /*==============================================================================
-DO FILE NAME:			03b_eth_table1_descriptives_eth5_nocarehomess
+DO FILE NAME:			03d_eth_table1_descriptives_eth5_carehomess
 PROJECT:				Ethnicity 2nd wave
 DATE: 					6th Jan 2020
 AUTHOR:					R Mathur
@@ -28,11 +28,11 @@ USER-INSTALLED ADO:
 
 * Open a log file
 capture log close
-log using ./logs/03b_eth_table1_eth5.log, replace t
+log using ./logs/03d_eth_table1_eth5_carehomes.log, replace t
 
 * Open Stata dataset
 use ./output/analysis_dataset.dta, clear
-drop if carehome==1
+keep if carehome==1
 safetab eth5,m 
 
  /* PROGRAMS TO AUTOMATE TABULATIONS===========================================*/ 
@@ -190,9 +190,9 @@ end
 
 *Set up output file
 cap file close tablecontent
-file open tablecontent using ./output/table1_eth5.txt, write text replace
+file open tablecontent using ./output/table1_eth5_carehomes.txt, write text replace
 
-file write tablecontent ("Table 1: Demographic and Clinical Characteristics- No care omes") _n
+file write tablecontent ("Table 1: Demographic and Clinical Characteristics- Care Home Population") _n
 
 * eth5 labelled columns
 
