@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  /workspace/logs/02b_outcomes_checks_eth5.log
   log type:  text
- opened on:  12 Jan 2021, 17:39:58
+ opened on:  14 Jan 2021, 20:17:39
 
 . 
 . 
@@ -236,7 +236,7 @@
 . use ./output/analysis_dataset.dta, clear
 
 . keep if carehome==0
-(1,133 observations deleted)
+(11,859 observations deleted)
 
 .                                                          
 . *Denominator
@@ -276,7 +276,7 @@
 . use ./output/analysis_dataset.dta, clear
 
 . keep if carehome==1
-(6,692 observations deleted)
+(67,080 observations deleted)
 
 . gen byte cons=1
 
@@ -322,5 +322,5 @@
       name:  <unnamed>
        log:  /workspace/logs/02b_outcomes_checks_eth5.log
   log type:  text
- closed on:  12 Jan 2021, 17:39:58
+ closed on:  14 Jan 2021, 20:17:40
 -------------------------------------------------------------------------------

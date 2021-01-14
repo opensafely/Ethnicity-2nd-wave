@@ -67,7 +67,13 @@ actions:
         log: logs/02b_outcomes_checks_eth5.log
         table: output/table0_outcomes_eth5.txt
 
-
+  check_tested:
+    run: stata-mp:latest analysis/6_eth_tested_characteristics.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        table: output/table1_tested.txt
+        
   table1_eth16:
     run: stata-mp:latest analysis/03a_eth_table1_descriptives_eth16_nocarehomes.do
     needs: [crmain]
