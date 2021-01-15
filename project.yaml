@@ -68,7 +68,7 @@ actions:
         table: output/table0_outcomes_eth5.txt
 
   check_tested:
-    run: stata-mp:latest analysis/6_eth_tested_characteristics.do
+    run: stata-mp:latest analysis/06_eth_tested_characteristics.do
     needs: [crmain]
     outputs:
       moderately_sensitive:
