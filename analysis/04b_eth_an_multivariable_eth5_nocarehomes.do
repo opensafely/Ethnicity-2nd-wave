@@ -6,7 +6,7 @@ DATE: 					15 July 2020
 DESCRIPTION OF FILE:	program 06 
 						univariable regression
 						multivariable regression 
-DATASETS USED:			data in memory ($tempdir/analysis_dataset_STSET_outcome)
+DATASETS USED:			data in memory ($output/analysis_dataset_STSET_outcome)
 DATASETS CREATED: 		none
 OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 						table2, printed to $Tabfigdir
@@ -27,7 +27,7 @@ cap log close
 macro drop hr
 log using ./logs/04b_eth_an_multivariable_eth5.log, replace t 
 cap file close tablecontent
-file open tablecontent using ./output//table2_eth5.txt, write text replace
+file open tablecontent using ./output/table2_eth5.txt, write text replace
 
 file write tablecontent ("Table 2: Association between ethnicity in 5 categories and COVID-19 outcomes - No care homes") _n
 file write tablecontent _tab ("Denominator") _tab ("Event") _tab ("Total person-weeks") _tab ("Rate per 1,000") _tab ("Crude") _tab _tab ("Age/Sex Adjusted") _tab _tab ("Age/Sex/IMD Adjusted") _tab _tab 	("plus co-morbidities") _tab _tab 	("plus hh size")  _tab _tab  _n
