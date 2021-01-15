@@ -68,7 +68,7 @@ actions:
         table: output/table0_outcomes_eth5.txt
 
   check_tested:
-    run: stata-mp:latest analysis/6_eth_tested_characteristics.do
+    run: stata-mp:latest analysis/06_eth_tested_characteristics.do
     needs: [crmain]
     outputs:
       moderately_sensitive:
@@ -147,4 +147,25 @@ actions:
         table: output/table3_testedpop_eth5_nocarehomes.txt
         estout: output/estout_table3_testedpop_eth5_nocarehomes.txt
         graph: output/FP_testedpop_eth5.txt
+
+  main_eth16_infectedpop:
+    run: stata-mp:latest analysis/08a_eth_an_infectedpop_eth16_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/08a_eth_an_infectedpop_eth16.log
+        table: output/table4_infectedpop_eth16_nocarehomes.txt
+        estout: output/estout_table4_infectedpop_eth16_nocarehomes.txt
+        graph: output/FP_infectedpop_eth16.txt
+
+  main_eth5_infectedpop:
+    run: stata-mp:latest analysis/08b_eth_an_infectedpop_eth5_nocarehomes.do
+    needs: [crmain]
+    outputs:
+      moderately_sensitive:
+        log: logs/08b_eth_an_infectedpop_eth5.log
+        table: output/table4_infectedpop_eth5_nocarehomes.txt
+        estout: output/estout_table4_infectedpop_eth5_nocarehomes.txt
+        graph: output/FP_infectedpop_eth5.txt
+
 
