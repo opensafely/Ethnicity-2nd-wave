@@ -168,21 +168,21 @@ study = StudyDefinition(
         on_or_after="2020-09-01",
         match_only_underlying_cause=False,
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
     died_ons_confirmedcovid_flag_any=patients.with_these_codes_on_death_certificate(
         confirmed_covid_codelist,
         on_or_after="2020-09-01",
         match_only_underlying_cause=False,
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
     died_ons_suspectedcovid_flag_any=patients.with_these_codes_on_death_certificate(
         suspected_covid_codelist,
         on_or_after="2020-09-01",
         match_only_underlying_cause=False,
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
     died_ons_covid_flag_underlying=patients.with_these_codes_on_death_certificate(
         covid_codelist,
@@ -196,7 +196,7 @@ study = StudyDefinition(
         include_month=True,
         include_day=True,
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
     first_tested_for_covid=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
@@ -206,7 +206,7 @@ study = StudyDefinition(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
     first_positive_test_date=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
@@ -216,7 +216,7 @@ study = StudyDefinition(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "rate" : "exponential_increase"},
+        "incidence" : 0.25},
     ),
 
     ## DEMOGRAPHIC COVARIATES
