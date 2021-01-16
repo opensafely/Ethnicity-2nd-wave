@@ -486,3 +486,53 @@ positivete |      onsdeath_30
 **TABLE OF ethnicity_16 onsdeath_30 REDACTED DUE TO SMALL 
 > N**
 
+
+. file close tablecontent
+
+. 
+. ************************************************create f
+> orestplot dataset
+. cap dsconcat `hr'
+
+. duplicates drop
+
+Duplicates in terms of all variables
+
+(0 observations are duplicates)
+
+. split idstr, p(_)
+variables created as string: 
+idstr1  idstr2  idstr3  idstr4
+
+. ren idstr1 model
+
+. ren idstr2 outcome
+
+. drop idstr idstr3
+
+. tab model
+
+      model |      Freq.     Percent        Cum.
+------------+-----------------------------------
+      crude |        112       10.29       10.29
+     model0 |        132       12.13       22.43
+     model1 |        144       13.24       35.66
+     model2 |        344       31.62       67.28
+     model3 |        356       32.72      100.00
+------------+-----------------------------------
+      Total |      1,088      100.00
+
+. 
+. *save dataset for later
+. outsheet using ./output/FP_infectedpop_eth16.txt, replac
+> e
+
+. 
+. * Close log file 
+. log close
+      name:  <unnamed>
+       log:  /Users/lsh152058/Documents/GitHub/Ethnicity-2
+> nd-wave/logs/08a_eth_an_infectedpop_eth16.log
+  log type:  text
+ closed on:  16 Jan 2021, 20:39:16
+----------------------------------------------------------
