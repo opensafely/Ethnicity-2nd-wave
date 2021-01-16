@@ -1,9 +1,9 @@
 ------------------------------------------------------------------------------------
       name:  <unnamed>
-       log:  /Users/lsh152058/Documents/GitHub/Ethnicity-2nd-wave/logs/08b_eth_an_in
+       log:  /Users/lsh152058/Documents/GitHub/Ethnicity-2nd-wave/logs/11b_eth_an_in
 > fectedpop_eth5.log
   log type:  text
- opened on:  16 Jan 2021, 20:20:20
+ opened on:  16 Jan 2021, 20:22:41
 
 . 
 . cap file close tablecontent
@@ -12,7 +12,7 @@
 > te text replace
 
 . file write tablecontent ("Table 3: Odds of testing positive amongst those receivin
-> g a test - No care homes wave 2") _n
+> g a test - No care homes") _n
 
 . file write tablecontent _tab ("Denominator") _tab ("Event") _tab ("%") _tab ("Crud
 > e") _tab _tab ("Age/Sex Adjusted") _tab _tab ("Age/Sex/IMD Adjusted") _tab _tab   
@@ -38,6 +38,7 @@
 . keep if carehome==0
   7. safecount
   8. 
+. 
 . /* keep those with at least 30 days f-up after positivetest ======================
 > =================================*/ 
 . gen fup=stime_`i'-positivetest_date
@@ -53,12 +54,9 @@
 > '
  14. tab `i' `i'_30
  15. 
-. 
-. 
 . /* Sense check outcomes=======================================================*/ 
 . safetab positivetest `i'_30
  16. 
-. 
 . safetab eth5 `i'_30, missing row
  17. 
 . 
@@ -92,8 +90,8 @@
  31. local hr "`hr' ./output/model1_`i'_eth5 "
  32. 
 . * Age, Gender, IMD and Comorbidities  
-. cap logistic `i' i.eth5 i.male age1 age2 age3   i.imd                             
->               ///
+. cap logistic `i'_30 i.eth5 i.male age1 age2 age3        i.imd                     
+>                       ///
 >                                                                                 i.
 > bmicat_sa     i.hba1ccat                      ///
 >                                                                                 gp
@@ -291,145 +289,83 @@
   9,305
 (1,412 observations deleted)
   7,893
+stime_icu not found
+r(111);
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      7,893    33.30141    19.95768          0         68
-(3,577 observations deleted)
+end of do-file
 
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      4,316    48.93582      11.211         30         68
-(5 real changes made)
+r(111);
 
-   outcome |
-onscovidde |   onscoviddeath_30
-       ath |         0          1 |     Total
------------+----------------------+----------
-         0 |     4,270          0 |     4,270 
-         1 |        41          5 |        46 
------------+----------------------+----------
-     Total |     4,311          5 |     4,316 
+. cd "/Users/lsh152058/Documents/GitHub/ethnicity-covid-re
+> search"
+/Users/lsh152058/Documents/GitHub/ethnicity-covid-research
 
-**TABLE OF positivetest onscoviddeath_30 REDACTED DUE TO SMALL N**
+. do "/var/folders/jg/zvg1wn090ps86p3lwtn901140000gn/T//SD
+> 00761.000000"
 
-
-**TABLE OF eth5 onscoviddeath_30 REDACTED DUE TO SMALL N**
-
-  78,759
-(69,454 observations deleted)
-  9,305
-(1,412 observations deleted)
-  7,893
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      7,893    33.30141    19.95768          0         68
-(3,577 observations deleted)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      4,316    48.93582      11.211         30         68
-(12 real changes made)
-
-   outcome |
-ons_noncov | ons_noncoviddeath_30
-   iddeath |         0          1 |     Total
------------+----------------------+----------
-         0 |     4,197          0 |     4,197 
-         1 |       107         12 |       119 
------------+----------------------+----------
-     Total |     4,304         12 |     4,316 
-
-   outcome |
-positivete | ons_noncoviddeath_30
-        st |         0          1 |     Total
------------+----------------------+----------
-         1 |     4,304         12 |     4,316 
------------+----------------------+----------
-     Total |     4,304         12 |     4,316 
-
-**TABLE OF eth5 ons_noncoviddeath_30 REDACTED DUE TO SMALL N**
-
-  78,759
-(69,454 observations deleted)
-  9,305
-(1,412 observations deleted)
-  7,893
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      7,893    33.30141    19.95768          0         68
-(3,577 observations deleted)
-
-    Variable |        Obs        Mean    Std. Dev.       Min        Max
--------------+---------------------------------------------------------
-         fup |      4,316    48.93582      11.211         30         68
-(17 real changes made)
-
-   outcome |      onsdeath_30
-  onsdeath |         0          1 |     Total
------------+----------------------+----------
-         0 |     4,151          0 |     4,151 
-         1 |       148         17 |       165 
------------+----------------------+----------
-     Total |     4,299         17 |     4,316 
-
-   outcome |
-positivete |      onsdeath_30
-        st |         0          1 |     Total
------------+----------------------+----------
-         1 |     4,299         17 |     4,316 
------------+----------------------+----------
-     Total |     4,299         17 |     4,316 
-
-**TABLE OF eth5 onsdeath_30 REDACTED DUE TO SMALL N**
-
-
-. file close tablecontent
+. global outcomes "hes icu onscoviddeath ons_noncoviddeath
+>  onsdeath"
 
 . 
-. ************************************************create forestplot dataset
-. dsconcat `hr'
+end of do-file
 
-. duplicates drop
+. do "/Users/lsh152058/Documents/GitHub/ethnicity-covid-re
+> search/analysis/11b_eth_an_infectedpop_eth5_nocarehomes.
+> do"
 
-Duplicates in terms of all variables
+. /*======================================================
+> =======================
+> DO FILE NAME:                   11b_eth_an_infectedpop_e
+> th5
+> PROJECT:                                Ethnicity and CO
+> VID
+> AUTHOR:                                 R Mathur (modifi
+> ed from A wong and A Schultze)
+> DATE:                                   15 July 2020    
+>                                 
+> DESCRIPTION OF FILE:    Risk of test positive in people 
+> receiving a test 
+>                                                 univaria
+> ble regression
+>                                                 multivar
+> iable regression 
+> DATASETS USED:                  data in memory ($output/
+> analysis_dataset)
+> DATASETS CREATED:               none
+> OTHER OUTPUT:                   logfiles, printed to fol
+> der analysis/$logs
+>                                                 table2, 
+> printed to analysis/$outdir
+>                                                 
+>                                                         
+> ========================================================
+> ======================*/
+. global outcomes "hes icu onscoviddeath ons_noncoviddeath
+>  onsdeath"
 
-(0 observations are duplicates)
+. sysdir set PLUS ./analysis/adofiles
 
-. split idstr, p(_)
-variables created as string: 
-idstr1  idstr2  idstr3  idstr4
+. adopath + ./analysis/adofiles
+  [1]  (BASE)      "/Applications/Stata/ado/base/"
+  [2]  (SITE)      "/Applications/Stata/ado/site/"
+  [3]              "."
+  [4]  (PERSONAL)  "/Users/lsh152058/Documents/Stata/ado/p
+> ersonal/"
+  [5]  (PLUS)      "./analysis/adofiles/"
+  [6]  (OLDPLACE)  "~/ado/"
+  [7]              "./analysis/adofiles"
 
-. ren idstr1 model
-
-. ren idstr2 outcome
-
-. drop idstr idstr3
-
-. tab model
-
-      model |      Freq.     Percent        Cum.
-------------+-----------------------------------
-      crude |         68        7.83        7.83
-     model0 |         88       10.14       17.97
-     model1 |        100       11.52       29.49
-     model2 |        300       34.56       64.06
-     model3 |        312       35.94      100.00
-------------+-----------------------------------
-      Total |        868      100.00
+. sysdir
+   STATA:  /Applications/Stata/
+    BASE:  /Applications/Stata/ado/base/
+    SITE:  /Applications/Stata/ado/site/
+    PLUS:  ./analysis/adofiles/
+PERSONAL:  /Users/lsh152058/Documents/Stata/ado/personal/
+OLDPLACE:  ~/ado/
 
 . 
-. *save dataset for later
-. outsheet using ./output/FP_infectedpop_eth5.txt, replace
-
 . 
-. * Close log file 
-. log close
-      name:  <unnamed>
-       log:  /Users/lsh152058/Documents/GitHub/Ethnicity-2nd-wave/logs/08b_eth_an_in
-> fectedpop_eth5.log
-  log type:  text
- closed on:  16 Jan 2021, 20:20:28
-------------------------------------------------------------------------------------
+. 
+. * Open a log file
+. 
+. cap log close
