@@ -149,7 +149,6 @@ foreach i of global outcomes {
 		safetab `i'
 }
 
-
 /* CENSORING */
 /* SET FU DATES===============================================================*/ 
 

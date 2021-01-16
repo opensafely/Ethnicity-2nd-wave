@@ -1,0 +1,371 @@
+------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  /Users/lsh152058/Documents/GitHub/Ethnicity-2nd-wave/logs/11b_eth_an_in
+> fectedpop_eth5.log
+  log type:  text
+ opened on:  16 Jan 2021, 20:22:41
+
+. 
+. cap file close tablecontent
+
+. file open tablecontent using ./output/table4_infectedpop_eth5_nocarehomes.txt, wri
+> te text replace
+
+. file write tablecontent ("Table 3: Odds of testing positive amongst those receivin
+> g a test - No care homes") _n
+
+. file write tablecontent _tab ("Denominator") _tab ("Event") _tab ("%") _tab ("Crud
+> e") _tab _tab ("Age/Sex Adjusted") _tab _tab ("Age/Sex/IMD Adjusted") _tab _tab   
+>     ("plus co-morbidities") _tab _tab       ("plus hh size")  _n
+
+. 
+. file write tablecontent _tab _tab _tab _tab   ("OR") _tab ("95% CI") _tab ("OR") _
+> tab ("95% CI") _tab ("OR") _tab ("95% CI") _tab ("OR") _tab ("95% CI") _tab ("95% 
+> CI") _tab ("95% CI") _n
+
+. 
+. 
+. foreach i of global outcomes {
+  2. * Open Stata dataset
+. use ./output/analysis_dataset.dta, clear
+  3. 
+. safecount
+  4. 
+. *define population as anyone who has received a test
+. keep if positivetest==1
+  5. safecount
+  6. 
+. keep if carehome==0
+  7. safecount
+  8. 
+. 
+. /* keep those with at least 30 days f-up after positivetest ======================
+> =================================*/ 
+. gen fup=stime_`i'-positivetest_date
+  9. sum fup
+ 10. drop if fup<30
+ 11. sum fup
+ 12. 
+. /* Create outcomes to be within 30 days of positivetest ==========================
+> =============================*/ 
+. 
+. gen `i'_30=0
+ 13. replace `i'_30=1 if (`i'_date - positivetest_date) <=30  & `i'_date <= stime_`i
+> '
+ 14. tab `i' `i'_30
+ 15. 
+. /* Sense check outcomes=======================================================*/ 
+. safetab positivetest `i'_30
+ 16. 
+. safetab eth5 `i'_30, missing row
+ 17. 
+. 
+. /* Main Model=================================================================*/
+. 
+. /* Univariable model */ 
+. 
+. cap logistic `i'_30 i.eth5 i.stp, nolog 
+ 18. cap estimates save ./output/crude_`i'_eth5, replace 
+ 19. cap parmest, label eform format(estimate p lb ub) saving(./output/crude_`i'_eth
+> 5, replace) idstr("crude_`i'_eth5") 
+ 20. cap eststo model1
+ 21. local hr "`hr' ./output/crude_`i'_eth5 "
+ 22. 
+. 
+. /* Multivariable models */ 
+. *Age Gender
+. cap logistic `i'_30 i.eth5 i.male age1 age2 age3 i.stp, nolog 
+ 23. cap estimates save ./output/model0_`i'_eth5, replace 
+ 24. cap parmest, label eform format(estimate p lb ub) saving(./output/model0_`i'_et
+> h5, replace) idstr("model0_`i'_eth5") 
+ 25. cap eststo model2
+ 26. local hr "`hr' ./output/model0_`i'_eth5 "
+ 27. 
+. * Age, Gender, IMD
+. cap logistic `i'_30 i.eth5 i.male age1 age2 age3 i.imd i.stp , nolog 
+ 28. cap estimates save ./output/model1_`i'_eth5, replace 
+ 29. cap parmest, label eform format(estimate p lb ub) saving(./output/model1_`i'_et
+> h5, replace) idstr("model1_`i'_eth5") 
+ 30. cap eststo model3
+ 31. local hr "`hr' ./output/model1_`i'_eth5 "
+ 32. 
+. * Age, Gender, IMD and Comorbidities  
+. cap logistic `i'_30 i.eth5 i.male age1 age2 age3        i.imd                     
+>                       ///
+>                                                                                 i.
+> bmicat_sa     i.hba1ccat                      ///
+>                                                                                 gp
+> _consult_count                        ///
+>                                                                                 i.
+> smoke_nomiss                          ///
+>                                                                                 i.
+> hypertension i.bp_cat         ///     
+>                                                                                 i.
+> asthma                                        ///
+>                                                                                 i.
+> chronic_respiratory_disease ///
+>                                                                                 i.
+> chronic_cardiac_disease       ///
+>                                                                                 i.
+> dm_type                                       ///     
+>                                                                                 i.
+> cancer                    ///
+>                                                                                 i.
+> chronic_liver_disease         ///
+>                                                                                 i.
+> stroke                                        ///
+>                                                                                 i.
+> dementia                                      ///
+>                                                                                 i.
+> other_neuro                           ///
+>                                                                                 i.
+> egfr60                                        ///
+>                                                                                 i.
+> esrf                                          ///
+>                                                                                 i.
+> immunosuppressed                      ///
+>                                                                                 i.
+> ra_sle_psoriasis      i. stp, nolog           
+ 33.                                                                                
+>  
+. cap estimates save ./output/model2_`i'_eth5, replace 
+ 34. cap parmest, label eform format(estimate p lb ub) saving(./output/model2_`i'_et
+> h5, replace) idstr("model2_`i'_eth5") 
+ 35. cap eststo model4
+ 36. local hr "`hr' ./output/model2_`i'_eth5 "
+ 37. 
+. * Age, Gender, IMD and Comorbidities  and household size 
+. cap logistic `i'_30 i.eth5 i.male age1 age2 age3        i.imd                     
+>                       ///
+>                                                                                 i.
+> bmicat_sa     i.hba1ccat                      ///
+>                                                                                 gp
+> _consult_count                        ///
+>                                                                                 i.
+> smoke_nomiss                          ///
+>                                                                                 i.
+> hypertension i.bp_cat         ///     
+>                                                                                 i.
+> asthma                                        ///
+>                                                                                 i.
+> chronic_respiratory_disease ///
+>                                                                                 i.
+> chronic_cardiac_disease       ///
+>                                                                                 i.
+> dm_type                                       ///     
+>                                                                                 i.
+> cancer                    ///
+>                                                                                 i.
+> chronic_liver_disease         ///
+>                                                                                 i.
+> stroke                                        ///
+>                                                                                 i.
+> dementia                                      ///
+>                                                                                 i.
+> other_neuro                           ///
+>                                                                                 i.
+> egfr60                                        ///
+>                                                                                 i.
+> esrf                                          ///
+>                                                                                 i.
+> immunosuppressed                      ///
+>                                                                                 i.
+> ra_sle_psoriasis                      ///
+>                                                                                 i.
+> hh_total_cat i.stp, nolog             
+ 38.                                                                                
+>  
+. cap estimates save ./output/model3_`i'_eth5, replace 
+ 39. cap parmest, label eform format(estimate p lb ub) saving(./output/model3_`i'_et
+> h5, replace) idstr("model3_`i'_eth5") 
+ 40. cap eststo model5
+ 41. local hr "`hr' ./output/model3_`i'_eth5 "
+ 42. 
+. /* Estout================================================================*/ 
+. cap esttab model1 model2 model3 model4 model5   using ./output/estout_table4_infec
+> tedpop_eth5_nocarehomes.txt, b(a2) ci(2) label wide compress eform ///
+>         title ("`i'") ///
+>         varlabels(`e(labels)') ///
+>         stats(N_sub) ///
+>         append 
+ 43. eststo clear
+ 44. 
+. /* Print table================================================================*/ 
+. *  Print the results for the main model 
+. 
+. 
+. * Column headings 
+. file write tablecontent ("`i'") _n
+ 45. 
+. * eth5 labelled columns
+. 
+. local lab1: label eth5 1
+ 46. local lab2: label eth5 2
+ 47. local lab3: label eth5 3
+ 48. local lab4: label eth5 4
+ 49. local lab5: label eth5 5
+ 50. local lab6: label eth5 6
+ 51. 
+. /* Counts */
+.  
+. * First row, eth5 = 1 (White) reference cat
+.         qui safecount if eth5==1
+ 52.         local denominator = r(N)
+ 53.         qui safecount if eth5 == 1 & `i' == 1
+ 54.         local event = r(N)
+ 55.         local pct =(`event'/`denominator')
+ 56.         file write tablecontent  ("`lab1'") _tab (`denominator') _tab (`event')
+>  _tab %3.2f (`pct') _tab
+ 57.         file write tablecontent ("1.00") _tab _tab ("1.00") _tab _tab ("1.00") 
+>  _tab _tab ("1.00") _tab _tab ("1.00") _n
+ 58.         
+. * Subsequent ethnic groups
+. forvalues eth=2/6 {
+ 59.         qui safecount if eth5==`eth'
+ 60.         local denominator = r(N)
+ 61.         qui safecount if eth5 == `eth' & `i' == 1
+ 62.         local event = r(N)
+ 63.         local pct =(`event'/`denominator')
+ 64.         file write tablecontent  ("`lab`eth''") _tab (`denominator') _tab (`eve
+> nt') _tab %3.2f (`pct') _tab
+ 65.         cap estimates use ./output/crude_`i'_eth5" 
+ 66.         cap lincom `eth'.eth5, eform
+ 67.         file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (
+> " - ") %4.2f (r(ub)) (")") _tab 
+ 68.         cap estimates clear
+ 69.         cap estimates use ./output/model0_`i'_eth5" 
+ 70.         cap lincom `eth'.eth5, eform
+ 71.         file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (
+> " - ") %4.2f (r(ub)) (")") _tab 
+ 72.         cap estimates clear
+ 73.         cap estimates use ./output/model1_`i'_eth5" 
+ 74.         cap lincom `eth'.eth5, eform
+ 75.         file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (
+> " - ") %4.2f (r(ub)) (")") _tab 
+ 76.         cap estimates clear
+ 77.         cap estimates use ./output/model2_`i'_eth5" 
+ 78.         cap lincom `eth'.eth5, eform
+ 79.         file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (
+> " - ") %4.2f (r(ub)) (")") _tab 
+ 80.         cap estimates clear
+ 81.         cap estimates use ./output/model3_`i'_eth5" 
+ 82.         cap lincom `eth'.eth5, eform
+ 83.         file write tablecontent  %4.2f (r(estimate)) _tab ("(") %4.2f (r(lb)) (
+> " - ") %4.2f (r(ub)) (")") _n
+ 84. }  //end ethnic group
+ 85. 
+. } //end outcomes
+  78,759
+(69,454 observations deleted)
+  9,305
+(1,412 observations deleted)
+  7,893
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         fup |      7,893    29.00988     24.0195        -66         68
+(3,962 observations deleted)
+
+    Variable |        Obs        Mean    Std. Dev.       Min        Max
+-------------+---------------------------------------------------------
+         fup |      3,931    48.74536    11.17344         30         68
+(4 real changes made)
+
+   outcome |        hes_30
+       hes |         0          1 |     Total
+-----------+----------------------+----------
+         0 |     3,768          0 |     3,768 
+         1 |       159          4 |       163 
+-----------+----------------------+----------
+     Total |     3,927          4 |     3,931 
+
+**TABLE OF positivetest hes_30 REDACTED DUE TO SMALL N**
+
+
+**TABLE OF eth5 hes_30 REDACTED DUE TO SMALL N**
+
+  78,759
+(69,454 observations deleted)
+  9,305
+(1,412 observations deleted)
+  7,893
+stime_icu not found
+r(111);
+
+end of do-file
+
+r(111);
+
+. cd "/Users/lsh152058/Documents/GitHub/ethnicity-covid-re
+> search"
+/Users/lsh152058/Documents/GitHub/ethnicity-covid-research
+
+. do "/var/folders/jg/zvg1wn090ps86p3lwtn901140000gn/T//SD
+> 00761.000000"
+
+. global outcomes "hes icu onscoviddeath ons_noncoviddeath
+>  onsdeath"
+
+. 
+end of do-file
+
+. do "/Users/lsh152058/Documents/GitHub/ethnicity-covid-re
+> search/analysis/11b_eth_an_infectedpop_eth5_nocarehomes.
+> do"
+
+. /*======================================================
+> =======================
+> DO FILE NAME:                   11b_eth_an_infectedpop_e
+> th5
+> PROJECT:                                Ethnicity and CO
+> VID
+> AUTHOR:                                 R Mathur (modifi
+> ed from A wong and A Schultze)
+> DATE:                                   15 July 2020    
+>                                 
+> DESCRIPTION OF FILE:    Risk of test positive in people 
+> receiving a test 
+>                                                 univaria
+> ble regression
+>                                                 multivar
+> iable regression 
+> DATASETS USED:                  data in memory ($output/
+> analysis_dataset)
+> DATASETS CREATED:               none
+> OTHER OUTPUT:                   logfiles, printed to fol
+> der analysis/$logs
+>                                                 table2, 
+> printed to analysis/$outdir
+>                                                 
+>                                                         
+> ========================================================
+> ======================*/
+. global outcomes "hes icu onscoviddeath ons_noncoviddeath
+>  onsdeath"
+
+. sysdir set PLUS ./analysis/adofiles
+
+. adopath + ./analysis/adofiles
+  [1]  (BASE)      "/Applications/Stata/ado/base/"
+  [2]  (SITE)      "/Applications/Stata/ado/site/"
+  [3]              "."
+  [4]  (PERSONAL)  "/Users/lsh152058/Documents/Stata/ado/p
+> ersonal/"
+  [5]  (PLUS)      "./analysis/adofiles/"
+  [6]  (OLDPLACE)  "~/ado/"
+  [7]              "./analysis/adofiles"
+
+. sysdir
+   STATA:  /Applications/Stata/
+    BASE:  /Applications/Stata/ado/base/
+    SITE:  /Applications/Stata/ado/site/
+    PLUS:  ./analysis/adofiles/
+PERSONAL:  /Users/lsh152058/Documents/Stata/ado/personal/
+OLDPLACE:  ~/ado/
+
+. 
+. 
+. 
+. * Open a log file
+. 
+. cap log close
