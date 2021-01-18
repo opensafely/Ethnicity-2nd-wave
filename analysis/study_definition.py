@@ -206,7 +206,7 @@ study = StudyDefinition(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "incidence" : 0.25},
+        "incidence" : 0.80},
     ),
     first_positive_test_date=patients.with_test_result_in_sgss(
         pathogen="SARS-CoV-2",
@@ -216,7 +216,7 @@ study = StudyDefinition(
         returning="date",
         date_format="YYYY-MM-DD",
         return_expectations={"date": {"earliest" : "2020-09-01"},
-        "incidence" : 0.25},
+        "incidence" : 0.80},
     ),
 
     ## DEMOGRAPHIC COVARIATES
