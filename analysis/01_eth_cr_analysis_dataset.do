@@ -154,16 +154,16 @@ foreach i of global outcomes {
 
 * Censoring dates for each outcome (last date outcome data available)
 *https://github.com/opensafely/rapid-reports/blob/master/notebooks/latest-dates.ipynb
-gen tested_censor_date = d("09/11/2020")
-gen positivetest_censor_date = d("09/11/2020")
-gen ae_censor_date = d("09/11/2020")
-gen hes_censor_date = d("09/11/2020")
-gen icu_censor_date = d("18/08/2020")
-gen cpnsdeath_censor_date  = d("09/11/2020")
-gen onsdeath_censor_date = d("09/11/2020")
-gen onscoviddeath_censor_date = d("09/11/2020")
-gen ons_noncoviddeath_censor_date = d("09/11/2020")
-gen onsconfirmeddeath_censor_date=d("09/11/2020")
+gen tested_censor_date = d("31/12/2020")
+gen positivetest_censor_date = d("31/12/2020")
+gen ae_censor_date = d("31/12/2020")
+gen hes_censor_date = d("31/12/2020")
+gen icu_censor_date = d("31/12/2020")
+gen cpnsdeath_censor_date  = d("31/12/2020")
+gen onsdeath_censor_date = d("31/12/2020")
+gen onscoviddeath_censor_date = d("31/12/2020")
+gen ons_noncoviddeath_censor_date = d("31/12/2020")
+gen onsconfirmeddeath_censor_date=d("31/12/2020")
 
 *******************************************************************************
 format *censor_date %d
