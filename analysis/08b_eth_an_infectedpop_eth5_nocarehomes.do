@@ -27,7 +27,7 @@ log using ./logs/08b_eth_an_infectedpop_eth5.log, replace t
 
 cap file close tablecontent
 file open tablecontent using ./output/table4_infectedpop_eth5_nocarehomes.txt, write text replace
-file write tablecontent ("Table 3: Odds of testing positive amongst those receiving a test - No care homes wave 2") _n
+file write tablecontent ("Table 4: Odds of each outcome amongst those testing positive - No care homes wave 2") _n
 file write tablecontent _tab ("Denominator") _tab ("Event") _tab ("%") _tab ("Crude") _tab _tab ("Age/Sex Adjusted") _tab _tab ("Age/Sex/IMD Adjusted") _tab _tab 	("plus co-morbidities") _tab _tab 	("plus hh size")  _n
 
 file write tablecontent _tab _tab _tab _tab   ("OR") _tab ("95% CI") _tab ("OR") _tab ("95% CI") _tab ("OR") _tab ("95% CI") _tab ("OR") _tab ("95% CI") _tab ("95% CI") _tab ("95% CI") _n
@@ -46,19 +46,15 @@ safecount
 keep if carehome==0
 safecount
 
-/* keep those with at least 30 days f-up after positivetest =======================================================*/ 
-gen fup=stime_`i'-positivetest_date
-sum fup
-drop if fup<30
-sum fup
+
+/* keep those with at least 30 days f-up prior to censoring date for each outcome =======================================================*/ 
+drop if `i'_censor_date -  positivetest_date <30
 
 /* Create outcomes to be within 30 days of positivetest =======================================================*/ 
 
 gen `i'_30=0
 replace `i'_30=1 if (`i'_date - positivetest_date) <=30  & `i'_date <= stime_`i'
 tab `i' `i'_30
-
-
 
 /* Sense check outcomes=======================================================*/ 
 safetab positivetest `i'_30
