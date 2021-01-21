@@ -48,7 +48,7 @@ actions:
         stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
         stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
       moderately_sensitive:
-        log: logs/01d_eth_cr_stset_death.log
+        log: logs/01e_eth_cr_stset_death.log
 
   cr_icu:
     run: stata-mp:latest analysis/01e_eth_cr_stset_icu.do
@@ -57,7 +57,7 @@ actions:
       highly_sensitive:
         stsetons_icu: output/analysis_dataset_STSET_icu.dta
       moderately_sensitive:
-        log: logs/01d_eth_cr_stset_icu.log
+        log: logs/01e_eth_cr_stset_icu.log
 
   check_eth16:
     run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
@@ -136,6 +136,16 @@ actions:
         table: output/table2_eth5.txt
         estout: output/estout_table2_eth5.txt
         graph: output/FP_multivariable_eth5.txt
+
+  icu_eth5:
+    run: stata-mp:latest analysis/04b_eth_an_icu_eth5_nocarehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04b_eth_an_icu_eth5.log
+        table: output/table2_icu_eth5.txt
+        estout: output/estout_icu_eth5.txt
+        graph: output/FP_icu_eth5.txt
 
   main_eth5_carehomes:
     run: stata-mp:latest analysis/04d_eth_an_multivariable_eth5_carehomes.do
