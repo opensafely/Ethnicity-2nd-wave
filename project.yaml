@@ -50,6 +50,15 @@ actions:
       moderately_sensitive:
         log: logs/01d_eth_cr_stset_death.log
 
+  cr_icu:
+    run: stata-mp:latest analysis/01e_eth_cr_stset_icu.do
+    needs: [crmain]
+    outputs:
+      highly_sensitive:
+        stsetons_icu: output/analysis_dataset_STSET_icu.dta
+      moderately_sensitive:
+        log: logs/01e_eth_cr_stset_icu.log
+
   check_eth16:
     run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
     needs: [crmain]
@@ -57,7 +66,6 @@ actions:
       moderately_sensitive:
         log: logs/02a_outcomes_checks_eth16.log
         table: output/table0_outcomes_eth16.txt
-
 
   check_eth5:
     run: stata-mp:latest analysis/02b_eth_outcomes_checks_eth5.do
@@ -108,6 +116,17 @@ actions:
         estout: output/estout_table2_eth16.txt
         graph: output/FP_multivariable_eth16.txt
 
+  icu_eth16:
+    run: stata-mp:latest analysis/04a_eth_an_icu_eth16_nocarehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04a_eth_an_icu_eth16.log
+        table: output/table2_icu_eth16.txt
+        estout: output/estout_icu_eth16.txt
+        graph: output/FP_icu_eth16.txt
+
+
   main_eth5:
     run: stata-mp:latest analysis/04b_eth_an_multivariable_eth5_nocarehomes.do
     needs: [cr_sgss, cr_hes_covid, cr_ons]
@@ -117,6 +136,16 @@ actions:
         table: output/table2_eth5.txt
         estout: output/estout_table2_eth5.txt
         graph: output/FP_multivariable_eth5.txt
+
+  icu_eth5:
+    run: stata-mp:latest analysis/04b_eth_an_icu_eth5_nocarehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04b_eth_an_icu_eth5.log
+        table: output/table2_icu_eth5.txt
+        estout: output/estout_icu_eth5.txt
+        graph: output/FP_icu_eth5.txt
 
   main_eth5_carehomes:
     run: stata-mp:latest analysis/04d_eth_an_multivariable_eth5_carehomes.do
@@ -168,4 +197,12 @@ actions:
         estout: output/estout_table4_infectedpop_eth5_nocarehomes.txt
         graph: output/FP_infectedpop_eth5.txt
 
-
+  icu_eth5_carehomes:
+    run: stata-mp:latest analysis/04d_eth_an_icu_eth5_carehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04d_eth_an_icu_eth5_carehomes.log
+        table: output/table2_icu_eth5_carehomes.txt
+        estout: output/estout_icu_eth5_carehomes.txt
+        graph: output/FP_icu_eth5_carehomes.txt
