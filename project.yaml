@@ -50,6 +50,18 @@ actions:
       moderately_sensitive:
         log: logs/01d_eth_cr_stset_death.log
 
+  cr_icu:
+    run: stata-mp:latest analysis/01e_eth_cr_stset_icu.do
+    needs: [crmain]
+    outputs:
+      highly_sensitive:
+        stsetons_noncoviddeath: output/analysis_dataset_STSET_icu.dta
+        stsetonsdeath: output/analysis_dataset_STSET_icu.dta 
+      moderately_sensitive:
+        log: logs/01d_eth_cr_stset_icu.log
+
+
+
   check_eth16:
     run: stata-mp:latest analysis/02a_eth_outcomes_checks_eth16.do
     needs: [crmain]
