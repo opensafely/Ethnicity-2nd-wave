@@ -25,7 +25,7 @@ sysdir
 * Open a log file
 cap log close
 macro drop hr
-log using ./logs/04d_eth_an_icue_eth5_carehomes.log, replace t 
+log using ./logs/04d_eth_an_icu_eth5_carehomes.log, replace t 
 cap file close tablecontent
 file open tablecontent using ./output/table2_icu_eth5_carehomes.txt, write text replace
 
