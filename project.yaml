@@ -197,4 +197,12 @@ actions:
         estout: output/estout_table4_infectedpop_eth5_nocarehomes.txt
         graph: output/FP_infectedpop_eth5.txt
 
-
+  icu_eth5_carehomes:
+    run: stata-mp:latest analysis/04d_eth_an_icu_eth5_carehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04d_eth_an_icu_eth5_carehomes.log
+        table: output/table2_icu_eth5_carehomes.txt
+        estout: output/estout_icu_eth5_carehomes.txt
+        graph: output/FP_icu_eth5_carehomes.txt
