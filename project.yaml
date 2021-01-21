@@ -48,7 +48,7 @@ actions:
         stsetons_noncoviddeath: output/analysis_dataset_STSET_ons_noncoviddeath.dta
         stsetonsdeath: output/analysis_dataset_STSET_onsdeath.dta 
       moderately_sensitive:
-        log: logs/01e_eth_cr_stset_death.log
+        log: logs/01d_eth_cr_stset_death.log
 
   cr_icu:
     run: stata-mp:latest analysis/01e_eth_cr_stset_icu.do
