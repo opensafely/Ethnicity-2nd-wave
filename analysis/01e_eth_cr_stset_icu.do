@@ -18,7 +18,7 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 * Open a log file
 cap log close
-log using ./logs/01d_eth_cr_stset_icu.log, replace t
+log using ./logs/01e_eth_cr_stset_icu.log, replace t
 
 global outcomes "icu"
 
