@@ -117,7 +117,7 @@ actions:
         graph: output/FP_multivariable_eth16.txt
 
   icu_eth16:
-    run: stata-mp:latest analysis/04a_icu_nocarehomes.do
+    run: stata-mp:latest analysis/04a_eth_an_icu_eth16_nocarehomes.do
     needs: [cr_icu]
     outputs:
       moderately_sensitive:
@@ -157,7 +157,17 @@ actions:
         estout: output/estout_table2_eth5_carehomes.txt
         graph: output/FP_multivariable_eth5_carehomes.txt
 
-  main_eth16_testedpop:
+  icu_eth5_carehomes:
+    run: stata-mp:latest analysis/04d_eth_an_icu_eth5_carehomes.do
+    needs: [cr_icu]
+    outputs:
+      moderately_sensitive:
+        log: logs/04d_eth_an_multivariable_eth5_carehomes.log
+        table: output/table2_icu_eth5_carehomes.txt
+        estout: output/estout_icu_eth5_carehomes.txt
+        graph: output/FP_icu_eth5_carehomes.txt
+
+ main_eth16_testedpop:
     run: stata-mp:latest analysis/07a_eth_an_testedpop_eth16_nocarehomes.do
     needs: [crmain]
     outputs:
