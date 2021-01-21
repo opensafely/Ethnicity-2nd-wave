@@ -15,6 +15,9 @@ OTHER OUTPUT: 			logfiles, printed to folder analysis/$logdir
 
 							
 ==============================================================================*/
+sysdir set PLUS ./analysis/adofiles
+adopath + ./analysis/adofiles
+sysdir
 
 * Open a log file
 cap log close
@@ -23,7 +26,7 @@ log using ./logs/01_eth_cr_analysis_dataset, replace t
 clear
 import delimited ./output/input.csv
 
-global outcomes "tested positivetest hes onscoviddeath ons_noncoviddeath onsdeath"
+global outcomes "tested positivetest hes icu onscoviddeath ons_noncoviddeath onsdeath"
 
 ****************************
 *  Create required cohort  *
