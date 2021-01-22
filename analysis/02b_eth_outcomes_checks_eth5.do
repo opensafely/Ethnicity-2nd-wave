@@ -25,7 +25,7 @@ USER-INSTALLED ADO:
  
 
  ==============================================================================*/
-global outcomes "tested positivetest hes onscoviddeath ons_noncoviddeath onsdeath"
+global outcomes "tested positivetest hes icu onscoviddeath ons_noncoviddeath onsdeath"
 
 * Open a log file
 capture log close
