@@ -1,0 +1,10 @@
+Table 2: Association between ethnicity in 5 categories and COVID-19 outcomes - care homes
+	Denominator	Event	Total person-weeks	Rate per 1,000	Crude		Age/Sex Adjusted		Age/Sex/IMD Adjusted		plus co-morbidities		plus hh size		
+					HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI	HR	95% CI		
+icu
+White	52284	8	   2445904	0.00	1.00		1.00		1.00		1.00		1.00
+South Asian	648	0	     30542	0.00	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(   . -    .)
+Black	551	0	     26086	0.00	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(0.00 -    .)	0.00	(0.00 -    .)	0.00	(0.00 -    .)
+Mixed	230	0	     10894	0.00	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(   . -    .)
+Other	333	0	     15795	0.00	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(   . -    .)
+Unknown	17844	0	    832713	0.00	0.00	(0.00 -    .)	0.00	(   . -    .)	0.00	(0.00 -    .)	0.00	(0.00 -    .)	0.00	(0.00 -    .)
